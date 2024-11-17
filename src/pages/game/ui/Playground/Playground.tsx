@@ -30,6 +30,7 @@ export const Playground = () => {
 
     useEffect(() => {
         dispatchCells({type: CellsActionKind.SPAWN})
+        dispatchCells({type: CellsActionKind.SPAWN})
     }, []);
 
     useEffect(() => {
