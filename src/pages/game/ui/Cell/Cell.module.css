@@ -1,0 +1,14 @@
+.cell {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #5d5d5d;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--black);
+}

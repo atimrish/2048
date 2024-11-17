@@ -1,0 +1,11 @@
+.controls_block {
+    margin: 20px 0;
+    display: flex;
+    color: var(--white);
+    justify-content: space-between;
+}
+
+.controls_block > * {
+    width: 45%;
+    text-align: center;
+}

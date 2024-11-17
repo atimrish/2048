@@ -1,0 +1,20 @@
+.heading_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text_2048 {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.heading_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 20px;
+}
