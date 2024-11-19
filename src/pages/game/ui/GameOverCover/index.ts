@@ -1,0 +1,1 @@
+export {GameOverCover} from './GameOverCover'

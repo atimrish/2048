@@ -4,7 +4,12 @@ import {getRandomNumber} from "@src/shared/lib";
 
 const spawnRandomly = () => getRandomNumber(1, 10) > 9 ? 4 : 2
 
-const spawnCell = (cells: TCellTableValues): TCellTableValues => {
+type TSpawnedCells = {
+    cells: TCellTableValues,
+    spawned: boolean
+}
+
+const spawnCell = (cells: TCellTableValues): TSpawnedCells => {
     const countEmptyCells = getCountEmptyCells(cells)
 
     if (countEmptyCells > 0) {
@@ -16,14 +21,18 @@ const spawnCell = (cells: TCellTableValues): TCellTableValues => {
                 if (cells[y][x] === 0) {
                     if (index === counter) {
                         cells[y][x] = spawnRandomly()
-                        return cells
+                        return {cells, spawned: true}
                     }
                     counter++
                 }
             }
         }
     }
-    return cells
+
+    return {
+        cells,
+        spawned: false
+    }
 }
 
 export {spawnCell}

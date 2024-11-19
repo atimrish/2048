@@ -1,5 +1,6 @@
 import * as s from "./GameHeading.module.css";
 import {useGameContext} from "@src/app/providers";
+import {LocalStorageKeys} from "@src/shared/config";
 
 export const GameHeading = () => {
     const {value} = useGameContext()
@@ -14,7 +15,7 @@ export const GameHeading = () => {
                 </div>
                 <div className={s.heading_block}>
                     <div>рекорд</div>
-                    <div>0</div>
+                    <div>{localStorage.getItem(LocalStorageKeys.TOP_VALUE) || 0}</div>
                 </div>
             </div>
         </>

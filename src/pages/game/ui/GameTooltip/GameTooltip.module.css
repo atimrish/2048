@@ -9,3 +9,7 @@
     width: 45%;
     text-align: center;
 }
+
+.new_game_button {
+    cursor: pointer;
+}

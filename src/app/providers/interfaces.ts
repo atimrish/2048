@@ -4,6 +4,7 @@ export enum CellsActionKind {
     UP = 'UP',
     DOWN = 'DOWN',
     SPAWN = 'SPAWN',
+    NEW_GAME = 'NEW_GAME',
 }
 
 export interface ICellsAction {
