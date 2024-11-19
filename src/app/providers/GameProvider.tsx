@@ -8,9 +8,9 @@ const emptyCells: TTableStacked = [setEmptyTable(), 0, 0]
 
 const GameContext = createContext<TGameContext>({
     value: emptyCells,
-    dispatchCells: () => {
-    },
+    dispatchCells: () => {},
     gameOver: false,
+    spawnedIndex: -1,
 })
 
 const useGameContext = () => useContext(GameContext)
@@ -18,6 +18,7 @@ const useGameContext = () => useContext(GameContext)
 const GameProvider = ({children}: { children: ReactNode }) => {
     const [gameOver, setGameOver] = useState(false)
     const [isPrevSpawned, setPrevSpawned] = useState(false)
+    const [spawnedIndex, setSpawnedIndex] = useState(-1)
 
     const cellsReducer = (state: TTableStacked, action: ICellsAction): TTableStacked => {
         const cellsActions: Record<string, (cells: TCellTableValues) => TTableStacked> = {
@@ -47,6 +48,7 @@ const GameProvider = ({children}: { children: ReactNode }) => {
         } else if (action.type === 'SPAWN') {
             const spawned = spawnCell(state[0])
             setPrevSpawned(spawned.spawned)
+            setSpawnedIndex(spawned.spawnedIndex)
             return [spawned.cells, state[1], state[2]]
         } else if (action.type === 'NEW_GAME') {
             setGameOver(false)
@@ -74,7 +76,7 @@ const GameProvider = ({children}: { children: ReactNode }) => {
     }, [gameOver]);
 
     return (
-        <GameContext.Provider value={{value, dispatchCells, gameOver}}>
+        <GameContext.Provider value={{value, dispatchCells, gameOver, spawnedIndex}}>
             {children}
         </GameContext.Provider>
     )

@@ -4,7 +4,7 @@ import {CellsActionKind, useGameContext} from "@src/app/providers";
 import {useEffect} from "react";
 
 export const Playground = () => {
-    const {value, dispatchCells} = useGameContext()
+    const {value, dispatchCells, spawnedIndex} = useGameContext()
     const flat = value[0].flat()
 
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -41,7 +41,15 @@ export const Playground = () => {
     return (
         <>
             <div className={s.container}>
-                {flat.map((value, index) => <Cell value={value} key={index} />)}
+                {flat.map((value, index) =>
+                    <Cell
+                        value={value}
+                        key={index}
+                        options={{
+                            spawned: index === spawnedIndex
+                        }}
+                    />)
+                }
             </div>
         </>
     );

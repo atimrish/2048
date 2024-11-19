@@ -1,10 +1,9 @@
-import {getColor, TCell} from '../../lib'
+import {getColor, TCell} from '@src/pages/game/lib'
 import * as s from './Cell.module.css'
 import {CSSProperties} from "react";
 
 export const Cell = (p: TCell) => {
     const color = getColor(p.value)
-
     const styles: CSSProperties = {
         backgroundColor: color
     }
@@ -18,9 +17,14 @@ export const Cell = (p: TCell) => {
          color-mix(in srgb, ${color} 11%, transparent) 0px -3px 15px`
     }
 
+    const classNames = [s.cell]
+    if (p.options?.spawned) {
+        classNames.push(s.spawned)
+    }
+
     return (
         <div
-            className={s.cell}
+            className={classNames.join(' ')}
             style={styles}>
             {p.value === 0 ? '' : p.value}
         </div>

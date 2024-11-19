@@ -3,6 +3,7 @@
     display: flex;
     color: var(--white);
     justify-content: space-between;
+    font-family: sans-serif;
 }
 
 .controls_block > * {

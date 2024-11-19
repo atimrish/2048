@@ -5,5 +5,6 @@ import {Dispatch} from "react";
 export type TGameContext = {
     value: TTableStacked
     dispatchCells: Dispatch<ICellsAction>,
-    gameOver: boolean
+    gameOver: boolean,
+    spawnedIndex: number
 }
