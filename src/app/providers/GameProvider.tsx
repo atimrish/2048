@@ -1,39 +1,44 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
-import {TCellTableValues} from "@src/pages/game/lib";
+import {TTableStacked} from "@src/pages/game/lib";
 import {ICellsAction, TGameContext} from "@src/app/providers";
 import {cellsDown, cellsLeft, cellsRight, cellsUp, setEmptyTable, spawnCell} from "@src/app/providers/lib";
 
-const emptyCells: TCellTableValues = setEmptyTable()
+const emptyCells: TTableStacked = [setEmptyTable(), 0, 0]
 
 const GameContext = createContext<TGameContext>({
-    cells: [],
+    value: emptyCells,
     dispatchCells: () => {}
 })
 
 const useGameContext = () => useContext(GameContext)
 
-const cellsReducer = (state: TCellTableValues, action: ICellsAction): TCellTableValues => {
+const cellsReducer = (state: TTableStacked, action: ICellsAction): TTableStacked => {
+    let stacked
     switch (action.type) {
         case 'LEFT':
-            return cellsLeft(state)
+            stacked = cellsLeft(state[0])
+            return [stacked[0], state[1] + stacked[1], state[2] + stacked[2]]
         case 'RIGHT':
-            return cellsRight(state)
+            stacked = cellsRight(state[0])
+            return [stacked[0], state[1] + stacked[1], state[2] + stacked[2]]
         case 'UP':
-            return cellsUp(state)
+            stacked = cellsUp(state[0])
+            return [stacked[0], state[1] + stacked[1], state[2] + stacked[2]]
         case 'DOWN':
-            return cellsDown(state)
+            stacked = cellsDown(state[0])
+            return [stacked[0], state[1] + stacked[1], state[2] + stacked[2]]
         case 'SPAWN':
-            return [...spawnCell(state)]
+            return [spawnCell(state[0]), state[1], state[2]]
         default:
             return state
     }
 }
 
 const GameProvider = ({children}: { children: ReactNode }) => {
-    const [cells, dispatchCells] = useReducer(cellsReducer, emptyCells)
+    const [value, dispatchCells] = useReducer(cellsReducer, emptyCells)
 
     return (
-        <GameContext.Provider value={{cells, dispatchCells}}>
+        <GameContext.Provider value={{value, dispatchCells}}>
             {children}
         </GameContext.Provider>
     )

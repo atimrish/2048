@@ -4,8 +4,8 @@ import {CellsActionKind, useGameContext} from "@src/app/providers";
 import {useEffect} from "react";
 
 export const Playground = () => {
-    const {cells, dispatchCells} = useGameContext()
-    const flat = cells.flat()
+    const {value, dispatchCells} = useGameContext()
+    const flat = value[0].flat()
 
     const handleKeyPress = (e: KeyboardEvent) => {
         switch (e.key) {
