@@ -1,58 +1,50 @@
 import React, {createContext, ReactNode, useContext, useEffect, useReducer, useState} from "react";
 import {TCellTableValues, TTableStacked} from "@src/pages/game/lib";
 import {ICellsAction, TGameContext} from "@src/app/providers";
-import {cellsDown, cellsLeft, cellsRight, cellsUp, setEmptyTable, spawnCell} from "@src/app/providers/lib";
+import {
+    cellsDown,
+    cellsLeft,
+    cellsRight,
+    cellsUp,
+    canMove,
+    setEmptyTable,
+    spawnCell
+} from "@src/app/providers/lib";
 import {LocalStorageKeys} from "@src/shared/config";
 
 const emptyCells: TTableStacked = [setEmptyTable(), 0, 0]
 
 const GameContext = createContext<TGameContext>({
     value: emptyCells,
-    dispatchCells: () => {},
+    dispatchCells: () => {
+    },
     gameOver: false,
     spawnedIndex: -1,
 })
 
 const useGameContext = () => useContext(GameContext)
 
+const cellsActions: Record<string, (cells: TCellTableValues) => TTableStacked> = {
+    LEFT: cellsLeft,
+    RIGHT: cellsRight,
+    UP: cellsUp,
+    DOWN: cellsDown,
+}
+
 const GameProvider = ({children}: { children: ReactNode }) => {
     const [gameOver, setGameOver] = useState(false)
-    const [isPrevSpawned, setPrevSpawned] = useState(false)
     const [spawnedIndex, setSpawnedIndex] = useState(-1)
 
     const cellsReducer = (state: TTableStacked, action: ICellsAction): TTableStacked => {
-        const cellsActions: Record<string, (cells: TCellTableValues) => TTableStacked> = {
-            LEFT: cellsLeft,
-            RIGHT: cellsRight,
-            UP: cellsUp,
-            DOWN: cellsDown,
-        }
-
         if (Object.keys(cellsActions).includes(action.type)) {
             const stacked = cellsActions[action.type](state[0])
-            if (stacked[1] === 0 && !isPrevSpawned) {
-
-                const canStack = Object.entries(cellsActions).every(([, stackMethod]) => {
-                    const stackResult = stackMethod(stacked[0])
-                    return stackResult[1] === 0
-                })
-
-                if (canStack) {
-                    setGameOver(true)
-                }
-            }
-            if (isPrevSpawned) {
-                setPrevSpawned(false)
-            }
             return [stacked[0], state[1] + stacked[1], state[2] + stacked[2]]
         } else if (action.type === 'SPAWN') {
             const spawned = spawnCell(state[0])
-            setPrevSpawned(spawned.spawned)
             setSpawnedIndex(spawned.spawnedIndex)
             return [spawned.cells, state[1], state[2]]
         } else if (action.type === 'NEW_GAME') {
             setGameOver(false)
-            setPrevSpawned(false)
             let emptyTable = setEmptyTable()
             const first = spawnCell(emptyTable)
             const second = spawnCell(first.cells)
@@ -63,6 +55,17 @@ const GameProvider = ({children}: { children: ReactNode }) => {
     }
 
     const [value, dispatchCells] = useReducer(cellsReducer, emptyCells)
+
+    useEffect(() => {
+        const cannotStack = Object.entries(cellsActions).every(([, stackMethod]) => {
+            const stackResult = stackMethod(value[0])
+            return stackResult[1] === 0
+        })
+
+        if (cannotStack && !canMove(value[0])) {
+            setGameOver(true)
+        }
+    }, [value]);
 
     useEffect(() => {
         if (gameOver) {
