@@ -6,6 +6,8 @@ export const animateRight = (cells: Cells): AnimatedResult => {
     const actual: Cells = structuredClone(cells)
     let score = 0
     const stackedIndexes: number[] = []
+    let hasMovedCell = false
+    let hasStackedCell = false
 
     for (let y = 0; y < cells.length; y++) {
         let stackIndex = -1
@@ -25,6 +27,7 @@ export const animateRight = (cells: Cells): AnimatedResult => {
                     //клетку перед ней приравниваем к 0
                     actual[y][i - 1] = 0
                     movementCells++
+                    hasMovedCell = true
                 }
                 if (actual[y][i] === actual[y][i - 1] && i !== stackIndex && i - 1 !== stackIndex) {
                     //stack
@@ -35,6 +38,7 @@ export const animateRight = (cells: Cells): AnimatedResult => {
                     stackIndex = i
                     movementCells++
                     stackedIndexes.push(y * cells.length + x)
+                    hasStackedCell = true
                     break
                 }
             }
@@ -44,5 +48,5 @@ export const animateRight = (cells: Cells): AnimatedResult => {
         }
     }
 
-    return { actual, animated, score, stackedIndexes }
+    return { actual, animated, score, stackedIndexes, hasStackedCell, hasMovedCell }
 }

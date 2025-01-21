@@ -29,7 +29,9 @@ describe('animateBottom', () => {
             animated: expectedAnimated,
             actual: expectedCells,
             score: 0,
-            stackedIndexes: []
+            stackedIndexes: [],
+            hasMovedCell: true,
+            hasStackedCell: false,
         })
     })
 
@@ -59,7 +61,9 @@ describe('animateBottom', () => {
             animated: expectedAnimated,
             actual: expectedCells,
             score: 16,
-            stackedIndexes: [4, 5, 2, 11]
+            stackedIndexes: [4, 5, 2, 11],
+            hasMovedCell: true,
+            hasStackedCell: true,
         })
     })
 })

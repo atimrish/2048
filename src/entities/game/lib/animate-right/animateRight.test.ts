@@ -1,6 +1,6 @@
 import {animateRight} from './animateRight'
-import {describe, test, expect} from "@jest/globals";
-import {AnimatedResult, Cells, CellsAnimated} from "@src/entities/game/model";
+import {describe, expect, test} from "@jest/globals";
+import {Cells, CellsAnimated} from "@src/entities/game/model";
 
 describe('animateRight', () => {
     test('сдвиг вправо без стаков', () => {
@@ -29,7 +29,9 @@ describe('animateRight', () => {
             animated: expectedAnimated,
             actual: expectedCells,
             score: 0,
-            stackedIndexes: []
+            stackedIndexes: [],
+            hasMovedCell: true,
+            hasStackedCell: false,
         })
     })
 
@@ -53,14 +55,15 @@ describe('animateRight', () => {
             ['translate(160px, 0px)', 'translate(160px, 0px)', 'translate(80px, 0px)', 'translate(0px, 0px)'],
             ['translate(0px, 0px)', 'translate(160px, 0px)', 'translate(0px, 0px)', 'translate(0px, 0px)'],
             ['translate(80px, 0px)', 'translate(80px, 0px)', 'translate(0px, 0px)', 'translate(0px, 0px)']
-
         ]
 
         expect(animateRight(cells)).toEqual({
             animated: expectedAnimated,
             actual: expectedCells,
             score: 16,
-            stackedIndexes: [2, 0, 5, 9]
+            stackedIndexes: [2, 0, 5, 9],
+            hasMovedCell: true,
+            hasStackedCell: true,
         })
     })
 
@@ -90,7 +93,9 @@ describe('animateRight', () => {
             animated: expectedAnimated,
             actual: expectedCells,
             score: 16,
-            stackedIndexes: [1, 4, 13]
+            stackedIndexes: [1, 4, 13],
+            hasMovedCell: true,
+            hasStackedCell: true,
         })
     })
 })

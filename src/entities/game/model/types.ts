@@ -6,5 +6,7 @@ export type AnimatedResult = {
     animated: CellsAnimated,
     actual: Cells,
     score: number,
-    stackedIndexes: number[]
+    stackedIndexes: number[],
+    hasMovedCell: boolean,
+    hasStackedCell: boolean
 }

@@ -9,7 +9,7 @@
     width: 70px;
     aspect-ratio: 1;
     border-radius: 5px;
-    transition: 100ms ease-in;
+    transition: 100ms ease-in-out;
     transition-property: transform;
 }
 

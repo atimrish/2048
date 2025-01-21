@@ -36,7 +36,18 @@ export const Playground = () => {
             }[e.key]
 
             if (containerRef.current && processMethod) {
-                const {animated, actual, stackedIndexes} = processMethod(cells)
+                const {
+                    animated,
+                    actual,
+                    stackedIndexes,
+                    hasStackedCell,
+                    hasMovedCell
+                } = processMethod(cells)
+
+                if (!hasMovedCell && !hasStackedCell) {
+                    return
+                }
+
                 const flatAnimated = animated.flat()
                 const child = containerRef.current.children as HTMLCollectionOf<HTMLDivElement>
 
@@ -46,10 +57,9 @@ export const Playground = () => {
                     child[i].style.transform = flatAnimated[i]
                 }
 
-
                 const timeCall = performance.now()
                 const animate = () => {
-                    if (performance.now() - timeCall >= 200) {
+                    if (performance.now() - timeCall >= 100) {
                         dispatch(setCells(spawnedResult.cells))
                         dispatch(setSpawnedIndex(spawnedResult.spawnIndex))
                         dispatch(setStackedIndexes(stackedIndexes))
