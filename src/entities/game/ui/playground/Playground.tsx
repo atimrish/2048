@@ -2,6 +2,7 @@ import * as s from './Playground.module.css'
 import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
 import {
+    addScore,
     getCells,
     getSpawnedIndex,
     getStackedIndexes,
@@ -41,7 +42,8 @@ export const Playground = () => {
                     actual,
                     stackedIndexes,
                     hasStackedCell,
-                    hasMovedCell
+                    hasMovedCell,
+                    score
                 } = processMethod(cells)
 
                 if (!hasMovedCell && !hasStackedCell) {
@@ -60,6 +62,7 @@ export const Playground = () => {
                 const timeCall = performance.now()
                 const animate = () => {
                     if (performance.now() - timeCall >= 100) {
+                        dispatch(addScore(score))
                         dispatch(setCells(spawnedResult.cells))
                         dispatch(setSpawnedIndex(spawnedResult.spawnIndex))
                         dispatch(setStackedIndexes(stackedIndexes))

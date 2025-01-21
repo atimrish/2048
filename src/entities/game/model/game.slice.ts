@@ -39,6 +39,12 @@ export const gameSlice = createSlice({
         },
         setStackedIndexes: (state, {payload}) => {
             state.stackedIndexes = payload
+        },
+        setScore: (state, {payload}) => {
+            state.score = payload
+        },
+        addScore: (state, {payload}) => {
+            state.score += payload
         }
     }
 })
@@ -55,4 +61,6 @@ export const {
     setCells,
     setSpawnedIndex,
     setStackedIndexes,
+    setScore,
+    addScore
 } = gameSlice.actions
