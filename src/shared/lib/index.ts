@@ -1,2 +1,1 @@
-export {getRandomNumber} from './getRandomNumber'
-export {padArrayStart, padArrayEnd} from './padArray'
+export {getColor} from './getColor'

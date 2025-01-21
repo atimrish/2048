@@ -1,0 +1,13 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+.cell {
+    width: 70px;
+    aspect-ratio: 1;
+    border-radius: 5px;
+    background-color: #5d5d5d;
+}

@@ -1,0 +1,6 @@
+export {animateTop} from './animate-top/animateTop'
+export {animateBottom} from './animate-bottom/animateBottom'
+export {animateLeft} from './animate-left/animateLeft'
+export {animateRight} from './animate-right/animateRight'
+export {getEmptyCells} from './get-empty-cells/getEmptyCells'
+export {spawnCell} from './spawn-cell/spawnCell'

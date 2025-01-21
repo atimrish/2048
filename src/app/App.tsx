@@ -1,10 +1,12 @@
-import {GamePage} from "../pages/game/ui";
-import {GameProvider} from "./providers";
+import {Playground} from "@src/entities/game/ui/playground/Playground";
+import {GameProvider} from "@src/app/providers/GameProvider";
 
 export const App = () => {
     return (
-        <GameProvider>
-            <GamePage/>
-        </GameProvider>
+        <>
+            <GameProvider>
+                <Playground/>
+            </GameProvider>
+        </>
     )
 };

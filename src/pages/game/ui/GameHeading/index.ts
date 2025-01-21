@@ -1,1 +1,0 @@
-export {GameHeading} from "./GameHeading";

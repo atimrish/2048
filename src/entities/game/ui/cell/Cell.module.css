@@ -1,0 +1,23 @@
+.cell {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "JetBrains Mono", sans-serif;
+    display: grid;
+    place-items: center;
+}
+
+.spawned {
+    animation: spawn 100ms forwards;
+}
+
+@keyframes spawn {
+    0% {
+        transform: scale(0);
+    }
+    90% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

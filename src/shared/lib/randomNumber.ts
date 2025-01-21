@@ -1,0 +1,1 @@
+export const randomNumber = (from: number, to: number) =>  Math.trunc(Math.random() * (to + 1 - from)) + from

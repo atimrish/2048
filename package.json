@@ -5,7 +5,8 @@
   "scripts": {
     "build:prod": "npx webpack --env mode=production",
     "build:dev": "npx webpack --env mode=development",
-    "start": "npx webpack serve"
+    "start": "npx webpack serve",
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -23,7 +25,10 @@
     "@types/webpack-dev-server": "^4.7.1",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
     "mini-css-extract-plugin": "^2.9.2",
+    "react-redux": "^9.2.0",
+    "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
