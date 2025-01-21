@@ -3,10 +3,10 @@ import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
 import {
     addScore,
-    getCells,
+    getCells, getScore,
     getSpawnedIndex,
     getStackedIndexes,
-    setCells,
+    setCells, setGameOver,
     setSpawnedIndex,
     setStackedIndexes
 } from "@src/entities/game/model";
@@ -14,11 +14,21 @@ import {Cell} from "@src/entities/game/ui/cell";
 import {useEffect, useRef} from "react";
 import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/entities/game/lib";
 
+const processMethod = {
+    "ArrowUp": animateTop,
+    "ArrowDown": animateBottom,
+    "ArrowLeft": animateLeft,
+    "ArrowRight": animateRight,
+}
+
+type ProcessKey = keyof typeof processMethod
+
 export const Playground = () => {
     const cells = useAppSelector(state => getCells(state))
     const spawnedIndex = useAppSelector(state => getSpawnedIndex(state))
     const stackedIndexes = useAppSelector(state => getStackedIndexes(state))
     const containerRef = useRef<HTMLDivElement>(null);
+    const currentScore = useAppSelector(state => getScore(state))
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -29,14 +39,19 @@ export const Playground = () => {
 
     useEffect(() => {
         const keyboardActions = (e: KeyboardEvent) => {
-            const processMethod = {
-                "ArrowUp": animateTop,
-                "ArrowDown": animateBottom,
-                "ArrowLeft": animateLeft,
-                "ArrowRight": animateRight,
-            }[e.key]
+            if (containerRef.current && processMethod[e.key as ProcessKey]) {
 
-            if (containerRef.current && processMethod) {
+                //game over check
+                const isGameOver = Object.values(processMethod).every(process => {
+                    const result = process(cells)
+                    return !result.hasMovedCell && !result.hasStackedCell
+                })
+
+                if (isGameOver) {
+                    localStorage.setItem('best_score', currentScore.toString())
+                    dispatch(setGameOver(true))
+                }
+
                 const {
                     animated,
                     actual,
@@ -44,7 +59,7 @@ export const Playground = () => {
                     hasStackedCell,
                     hasMovedCell,
                     score
-                } = processMethod(cells)
+                } = processMethod[e.key as ProcessKey](cells)
 
                 if (!hasMovedCell && !hasStackedCell) {
                     return

@@ -1,0 +1,18 @@
+.container {
+    padding: 40px;
+    border: 1px solid var(--white);
+    position: relative;
+}
+
+.game_over {
+    inset: 0;
+    position: absolute;
+    background-color: rgba(254, 255, 255, 0.47);
+    color: var(--black);
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: sans-serif;
+    transition: 300ms all ease-in;
+}
