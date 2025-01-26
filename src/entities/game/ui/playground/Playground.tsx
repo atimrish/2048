@@ -48,7 +48,10 @@ export const Playground = () => {
                 })
 
                 if (isGameOver) {
-                    localStorage.setItem('best_score', currentScore.toString())
+                    const currentBestScore = Number(localStorage.getItem('best_score'))
+                    if (!currentBestScore || currentBestScore < currentScore) {
+                        localStorage.setItem('best_score', currentScore.toString())
+                    }
                     dispatch(setGameOver(true))
                 }
 
