@@ -16,3 +16,10 @@
     font-family: sans-serif;
     transition: 300ms all ease-in;
 }
+
+@media screen and (max-width: 400px) {
+    .container {
+        padding: 0;
+        border: none;
+    }
+}
