@@ -29,6 +29,7 @@ export const Cell = (p: Props) => {
         <div
             className={classes.join(' ')}
             style={css}
+            data-value={p.value}
         >
             {p.value}
         </div>

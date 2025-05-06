@@ -1,9 +1,32 @@
 .cell {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     font-family: "JetBrains Mono", sans-serif;
     display: grid;
     place-items: center;
+}
+
+.cell[data-value="2"],
+.cell[data-value="4"],
+.cell[data-value="8"] {
+    font-size: 32px;
+}
+
+.cell[data-value="16"],
+.cell[data-value="32"],
+.cell[data-value="64"] {
+    font-size: 28px;
+}
+
+.cell[data-value="128"],
+.cell[data-value="256"],
+.cell[data-value="512"] {
+    font-size: 24px;
+}
+
+.cell[data-value="1024"],
+.cell[data-value="2048"] {
+    box-shadow: 0px 0px 97px 39px rgb(114, 33, 159);
 }
 
 .spawned {
