@@ -30,8 +30,8 @@ export const Scoreboard = () => {
     return (
         <div className={s.scoreboard}>
             <div>
-                <div>Счет: {score}</div>
-                <div>Рекорд: {bestScore}</div>
+                <div>Score: {score}</div>
+                <div>Best score: {bestScore}</div>
             </div>
 
             <button

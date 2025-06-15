@@ -4,6 +4,51 @@
     font-family: "JetBrains Mono", sans-serif;
     display: grid;
     place-items: center;
+    background-color: #5d5d5d;
+}
+
+.cell[data-value="2"] {
+    background-color: #ffffff;
+}
+
+.cell[data-value="4"] {
+    background-color: #f0ecf6;
+}
+
+.cell[data-value="8"] {
+    background-color: #d1c4e6;
+}
+
+.cell[data-value="16"] {
+    background-color: #d1c6e4;
+}
+
+.cell[data-value="32"] {
+    background-color: #c1b3db;
+}
+
+.cell[data-value="64"] {
+    background-color: #b2a0d2;
+}
+
+.cell[data-value="128"] {
+    background-color: #a28dc8;
+}
+
+.cell[data-value="256"] {
+    background-color: #937abf;
+}
+
+.cell[data-value="512"] {
+    background-color: #8367b6;
+}
+
+.cell[data-value="1024"] {
+    background-color: #7454ad;
+}
+
+.cell[data-value="2048"] {
+    background-color: #6441a4;
 }
 
 .cell[data-value="2"],
@@ -26,7 +71,9 @@
 
 .cell[data-value="1024"],
 .cell[data-value="2048"] {
-    box-shadow: 0px 0px 97px 39px rgb(114, 33, 159);
+    box-shadow: 0px 0px 47px 9px rgb(114, 33, 159);
+    color: var(--white);
+    font-weight: 700;
 }
 
 .spawned {

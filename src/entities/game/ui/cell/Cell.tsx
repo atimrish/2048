@@ -1,5 +1,4 @@
 import * as s from './Cell.module.css'
-import {getColor} from "@src/shared/lib";
 import {CSSProperties} from "react";
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 export const Cell = (p: Props) => {
     const css: CSSProperties = {
         visibility: p.value === 0 ? 'hidden' : 'visible',
-        backgroundColor: getColor(p.value)
+        
     }
 
     const classes = [s.cell]

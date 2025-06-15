@@ -15,7 +15,7 @@ export const GameContainer = (p: PropsWithChildren) => {
                 <div
                     className={s.game_over}
                     onClick={() => dispatch(resetGame())}
-                >Новая игра</div>
+                >New game</div>
             )}
         </div>
     );
