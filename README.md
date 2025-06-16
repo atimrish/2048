@@ -1,23 +1,43 @@
-## 🌏 Ссылка на деплой:
-https://atimrish.github.io/2048
-## Развернуть локально:
-```bash
-npm i && npm run start
-```
-## 🧰 Технологии, использованные в проекте:
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
-![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
-![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
-## Структура проекта
-### Feature Slised Design
-- src
-  - app
-  - entities
-    - game
-      - config
-      - lib
-      - model
-      - ui
-  - shared
+🎮 2048 Game
+
+A modern, mobile-friendly clone of the classic 2048 puzzle game, built with HTML, CSS, and JavaScript.
+
+[👉 Play Now!](https://atimrish.github.io/2048/)
+
+🔥 Features
+
+✔ Responsive design – Works on desktop, tablets, and mobile devices.
+✔ Touch controls – Swipe gestures supported on mobile.
+✔ Smooth animations – Tile movements and merges feel fluid.
+✔ Score tracking – Keeps your best score in local storage.
+🛠 How to Run Locally
+
+    Clone the repo:
+    ```sh
+    git clone https://github.com/atimrish/2048.git
+    ```
+    Open the game:
+
+        Navigate to the project folder and open index.html in a browser.
+        Or use a local server (e.g., VS Code Live Server, python -m http.server).
+
+📱 Mobile Optimization
+
+    Prevented accidental refresh (overscroll-behavior-y: contain and overflow: hidden stops pull-to-refresh).
+    No scroll interference – CSS ensures the game takes full viewport space.
+
+📜 Rules
+
+    Swipe (↑, ↓, ←, →) to move tiles.
+    Merge identical numbers to reach 2048 (or higher!).
+    Game ends when the board fills up with no possible moves.
+
+🤝 Contributing
+
+Want to improve the game? Submit a PR or open an Issue!
+
+    Ideas:
+
+        Add undo feature
+        Improve animations
+        Add scoreboard
