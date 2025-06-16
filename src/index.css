@@ -14,4 +14,6 @@
     display: grid;
     place-items: center;
     margin: 0;
+    overflow: hidden;
+    overscroll-behavior-y: contain;
 }
