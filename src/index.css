@@ -1,19 +1,19 @@
 :global :root {
-    --white: #feffff;
-    --black: #0e0e10;
+	--white: #feffff;
+	--black: #0e0e10;
 }
 
 :global * {
-    box-sizing: border-box;
-    font-family: sans-serif;
+	box-sizing: border-box;
+	font-family: sans-serif;
 }
 
 :global body {
-    min-height: 100vh;
-    background-color: var(--black);
-    display: grid;
-    place-items: center;
-    margin: 0;
-    overflow: hidden;
-    overscroll-behavior-y: contain;
+	min-height: 100vh;
+	background-color: var(--black);
+	display: grid;
+	place-items: center;
+	margin: 0;
+	overflow: hidden;
+	overscroll-behavior-y: contain;
 }

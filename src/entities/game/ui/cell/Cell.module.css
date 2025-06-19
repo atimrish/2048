@@ -1,93 +1,94 @@
 .cell {
-    font-size: 20px;
-    font-weight: 600;
-    font-family: "JetBrains Mono", sans-serif;
-    display: grid;
-    place-items: center;
-    background-color: #5d5d5d;
+	font-size: 20px;
+	font-weight: 600;
+	font-family: "JetBrains Mono", sans-serif;
+	display: grid;
+	place-items: center;
+	background-color: #5d5d5d;
+	will-change: transform;
 }
 
 .cell[data-value="2"] {
-    background-color: #ffffff;
+	background-color: #ffffff;
 }
 
 .cell[data-value="4"] {
-    background-color: #f0ecf6;
+	background-color: #f0ecf6;
 }
 
 .cell[data-value="8"] {
-    background-color: #d1c4e6;
+	background-color: #d1c4e6;
 }
 
 .cell[data-value="16"] {
-    background-color: #d1c6e4;
+	background-color: #d1c6e4;
 }
 
 .cell[data-value="32"] {
-    background-color: #c1b3db;
+	background-color: #c1b3db;
 }
 
 .cell[data-value="64"] {
-    background-color: #b2a0d2;
+	background-color: #b2a0d2;
 }
 
 .cell[data-value="128"] {
-    background-color: #a28dc8;
+	background-color: #a28dc8;
 }
 
 .cell[data-value="256"] {
-    background-color: #937abf;
+	background-color: #937abf;
 }
 
 .cell[data-value="512"] {
-    background-color: #8367b6;
+	background-color: #8367b6;
 }
 
 .cell[data-value="1024"] {
-    background-color: #7454ad;
+	background-color: #7454ad;
 }
 
 .cell[data-value="2048"] {
-    background-color: #6441a4;
+	background-color: #6441a4;
 }
 
 .cell[data-value="2"],
 .cell[data-value="4"],
 .cell[data-value="8"] {
-    font-size: 32px;
+	font-size: 32px;
 }
 
 .cell[data-value="16"],
 .cell[data-value="32"],
 .cell[data-value="64"] {
-    font-size: 28px;
+	font-size: 28px;
 }
 
 .cell[data-value="128"],
 .cell[data-value="256"],
 .cell[data-value="512"] {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 .cell[data-value="1024"],
 .cell[data-value="2048"] {
-    box-shadow: 0px 0px 47px 9px rgb(114, 33, 159);
-    color: var(--white);
-    font-weight: 700;
+	box-shadow: 0px 0px 47px 9px rgb(114, 33, 159);
+	color: var(--white);
+	font-weight: 700;
 }
 
 .spawned {
-    animation: spawn 100ms forwards;
+	animation: spawn 100ms forwards;
 }
 
 @keyframes spawn {
-    0% {
-        transform: scale(0);
-    }
-    90% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+	0% {
+		transform: scale(0);
+	}
+	90% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
 }

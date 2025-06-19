@@ -4,14 +4,14 @@ import {Scoreboard} from "@src/entities/game/ui/scoreboard";
 import {GameContainer} from "@src/entities/game/ui/game-container";
 
 export const App = () => {
-    return (
-        <>
-            <GameProvider>
-                <GameContainer>
-                    <Scoreboard/>
-                    <Playground/>
-                </GameContainer>
-            </GameProvider>
-        </>
-    )
+	return (
+		<>
+			<GameProvider>
+				<GameContainer>
+					<Scoreboard />
+					<Playground />
+				</GameContainer>
+			</GameProvider>
+		</>
+	);
 };
