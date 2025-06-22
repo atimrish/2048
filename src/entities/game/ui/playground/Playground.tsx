@@ -1,6 +1,5 @@
-import * as s from "./Playground.module.css";
-import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
+import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/entities/game/lib";
 import {
 	addScore,
 	getCells,
@@ -13,9 +12,10 @@ import {
 	setStackedIndexes,
 } from "@src/entities/game/model";
 import {Cell} from "@src/entities/game/ui/cell";
-import {useEffect, useRef} from "react";
-import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/entities/game/lib";
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
+import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
+import {useEffect, useRef} from "react";
+import * as s from "./Playground.module.css";
 
 const processMethod = {
 	ArrowUp: animateTop,
