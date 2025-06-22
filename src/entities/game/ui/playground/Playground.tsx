@@ -31,6 +31,9 @@ const processMethod = {
 type ProcessKey = keyof typeof processMethod;
 type TouchCoords = {x: number; y: number};
 
+const TRANSITION_DURATION = 200;
+const TRANSITION_STYLE = `transform ${TRANSITION_DURATION}ms ease`;
+
 export const Playground = () => {
 	const cells = useAppSelector((state) => getCells(state));
 	const spawnedIndex = useAppSelector((state) => getSpawnedIndex(state));
@@ -69,6 +72,7 @@ export const Playground = () => {
 
 			for (let i = 0; i < child.length; i++) {
 				child[i].style.transform = flatAnimated[i];
+				child[i].style.transition = TRANSITION_STYLE;
 			}
 
 			requestAnimationTimeout(() => {
@@ -76,17 +80,28 @@ export const Playground = () => {
 				dispatch(setCells(spawnedResult.cells));
 				dispatch(setSpawnedIndex(spawnedResult.spawnIndex));
 				dispatch(setStackedIndexes(stackedIndexes));
-			}, 100);
+			}, TRANSITION_DURATION);
 		}
 	};
 
 	useEffect(() => {
+		document.documentElement.style.setProperty("--transition-duration", `${TRANSITION_DURATION}ms`);
+
 		let spawned = spawnCell(cells).cells;
 		spawned = spawnCell(spawned).cells;
 		dispatch(setCells(spawned));
 	}, []);
 
 	useEffect(() => {
+		if (containerRef.current) {
+			const child = containerRef.current.children as HTMLCollectionOf<HTMLDivElement>;
+
+			Array.from(child).forEach((element) => {
+				element.style.transform = "translate(0px, 0px)";
+				element.style.transition = "none";
+			});
+		}
+
 		let startTouch: TouchCoords = {x: 0, y: 0};
 
 		const onTouchStart = (e: TouchEvent) => {
@@ -127,8 +142,10 @@ export const Playground = () => {
 			document.body.removeEventListener("touchend", onTouchEnd);
 
 			const child = containerRef.current?.children as HTMLCollectionOf<HTMLDivElement>;
+
 			Array.from(child).forEach((element) => {
-				element.style.transform = "";
+				element.style.transform = "translate(0px, 0px)";
+				element.style.transition = TRANSITION_STYLE;
 			});
 		};
 	}, [cells]);

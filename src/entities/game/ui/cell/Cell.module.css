@@ -8,6 +8,10 @@
 	will-change: transform;
 }
 
+.cell[data-value="0"] {
+	visibility: hidden;
+}
+
 .cell[data-value="2"] {
 	background-color: #ffffff;
 }
@@ -77,18 +81,18 @@
 	font-weight: 700;
 }
 
-.spawned {
+.cell[data-spawned="true"] {
 	animation: spawn 100ms forwards;
 }
 
 @keyframes spawn {
 	0% {
-		transform: scale(0);
+		scale: 0
 	}
 	90% {
-		transform: scale(1.1);
+		scale: 1.1;
 	}
 	100% {
-		transform: scale(1);
+		scale: 1;
 	}
 }
