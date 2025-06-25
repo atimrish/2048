@@ -1,6 +1,6 @@
 import {animateBottom} from './animateBottom'
 import {describe, expect, test} from "@jest/globals";
-import {Cells, CellsAnimated} from "@src/entities/game/model";
+import {Cells, CellsAnimated} from "@src/features/game/model";
 
 describe('animateBottom', () => {
     test('сдвиг вниз без стаков', () => {

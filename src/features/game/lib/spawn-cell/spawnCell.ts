@@ -1,4 +1,4 @@
-import {Cells} from "@src/entities/game/model";
+import {Cells} from "@src/features/game/model";
 import {randomNumber} from "@src/shared/lib/randomNumber";
 
 type SpawnResult = {

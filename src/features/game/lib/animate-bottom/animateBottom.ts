@@ -1,7 +1,7 @@
-import {AnimatedResult, Cells, CellsAnimated} from "@src/entities/game/model";
+import {AnimatedResult, Cells, CellsAnimated} from "@src/features/game/model";
 import {gameConfig} from "@src/entities/game/config";
 
-export const animateLeft = (cells: Cells): AnimatedResult => {
+export const animateBottom = (cells: Cells): AnimatedResult => {
     const animated: CellsAnimated = Array.from({length: 4}, () => new Array(4).fill(''))
     const actual: Cells = structuredClone(cells)
     let score = 0
@@ -9,31 +9,32 @@ export const animateLeft = (cells: Cells): AnimatedResult => {
     let hasMovedCell = false
     let hasStackedCell = false
 
-    for (let y = 0; y < cells.length; y++) {
+    for (let x = 0; x < cells.length; x++) {
         let stackIndex = -1
-        for (let x = 0; x < cells[y].length; x++) {
+
+        for (let y = cells[x].length - 1; y >= 0; y--) {
             //кол-во сдвинутых клеток
             let movementCells = 0
 
-            for (let i = x - 1; i >= 0; i--) {
-                if (actual[y][i] === 0) {
-                    if (actual[y][i + 1] === 0) {
+            for (let i = y + 1; i < cells[x].length; i++) {
+                if (actual[i][x] === 0) {
+                    if (actual[i - 1][x] === 0) {
                         break
                     }
 
-                    //передвигаем число на клетку влево
-                    actual[y][i] = actual[y][i + 1]
+                    //передвигаем число на клетку вниз
+                    actual[i][x] = actual[i - 1][x]
                     //клетку перед ней приравниваем к 0
-                    actual[y][i + 1] = 0
+                    actual[i - 1][x] = 0
                     movementCells++
                     hasMovedCell = true
                 }
-                if (actual[y][i] === actual[y][i + 1] && i !== stackIndex && i + 1 !== stackIndex) {
+                if (actual[i][x] === actual[i - 1][x] && i !== stackIndex && i - 1 !== stackIndex) {
                     //stack
-                    actual[y][i] += actual[y][i + 1]
+                    actual[i][x] += actual[i - 1][x]
                     //добавляем очки
-                    score += actual[y][i]
-                    actual[y][i + 1] = 0
+                    score += actual[i][x]
+                    actual[i - 1][x] = 0
                     stackIndex = i
                     movementCells++
                     stackedIndexes.push(y * cells.length + x)
@@ -42,8 +43,8 @@ export const animateLeft = (cells: Cells): AnimatedResult => {
                 }
             }
 
-            const pixelsToLeft = movementCells * (gameConfig.gap + gameConfig.size)
-            animated[y][x] = `translate(-${pixelsToLeft}px, 0px)`
+            const pixelsToBottom = movementCells * (gameConfig.gap + gameConfig.size)
+            animated[y][x] = `translate(0px, ${pixelsToBottom}px)`
         }
     }
 

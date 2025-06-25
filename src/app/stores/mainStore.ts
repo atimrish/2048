@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {gameSlice} from "@src/entities/game/model";
+import {gameSlice} from "@src/features/game/model";
 import {useDispatch, useSelector} from "react-redux";
 
 export const store = configureStore({

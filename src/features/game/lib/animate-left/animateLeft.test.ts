@@ -1,6 +1,6 @@
 import {animateLeft} from './animateLeft'
 import {describe, expect, test} from "@jest/globals";
-import {Cells, CellsAnimated} from "@src/entities/game/model";
+import {Cells, CellsAnimated} from "@src/features/game/model";
 
 describe('animateLeft', () => {
     test('сдвиг влево без стаков', () => {

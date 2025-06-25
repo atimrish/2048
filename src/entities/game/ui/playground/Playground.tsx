@@ -1,5 +1,5 @@
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
-import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/entities/game/lib";
+import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/features/game/lib";
 import {
 	addScore,
 	getCells,
@@ -10,7 +10,7 @@ import {
 	setGameOver,
 	setSpawnedIndex,
 	setStackedIndexes,
-} from "@src/entities/game/model";
+} from "@src/features/game/model";
 import {Cell} from "@src/entities/game/ui/cell";
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
 import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";

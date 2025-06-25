@@ -1,4 +1,4 @@
-import {AnimatedResult, Cells, CellsAnimated} from "@src/entities/game/model";
+import {AnimatedResult, Cells, CellsAnimated} from "@src/features/game/model";
 import {gameConfig} from "@src/entities/game/config";
 
 export const animateTop = (cells: Cells): AnimatedResult => {

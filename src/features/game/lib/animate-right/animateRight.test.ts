@@ -1,6 +1,6 @@
 import {animateRight} from './animateRight'
 import {describe, expect, test} from "@jest/globals";
-import {Cells, CellsAnimated} from "@src/entities/game/model";
+import {Cells, CellsAnimated} from "@src/features/game/model";
 
 describe('animateRight', () => {
     test('сдвиг вправо без стаков', () => {

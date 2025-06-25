@@ -1,6 +1,6 @@
 import * as s from "./Scoreboard.module.css";
 import {useAppSelector} from "@src/app/stores";
-import {getBestScore, getScore} from "@src/entities/game/model";
+import {getBestScore, getScore} from "@src/features/game/model";
 import FullscreenSrc from "@src/shared/ui/icons/fullscreen.svg";
 import FullscreenExitSrc from "@src/shared/ui/icons/fullscreen-exit.svg";
 import {MouseEvent, useEffect, useState} from "react";

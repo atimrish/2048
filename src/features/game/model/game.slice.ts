@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getEmptyCells, spawnCell} from "@src/entities/game/lib";
-import {Cells} from "@src/entities/game/model/types";
+import {getEmptyCells} from "@src/entities/game/lib";
+import {spawnCell} from "@src/features/game/lib";
+import {Cells} from "@src/features/game/model/types";
 
 interface GameSlice {
     cells: Cells

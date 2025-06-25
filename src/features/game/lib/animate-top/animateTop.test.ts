@@ -1,6 +1,6 @@
 import {animateTop} from './animateTop'
 import {describe, expect, test} from "@jest/globals";
-import {Cells, CellsAnimated} from "@src/entities/game/model";
+import {Cells, CellsAnimated} from "@src/features/game/model";
 
 describe('animateTop', () => {
     test('сдвиг вверх без стаков', () => {
