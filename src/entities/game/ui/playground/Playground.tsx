@@ -1,4 +1,5 @@
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
+import {Cell} from "@src/entities/game/ui/cell";
 import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/features/game/lib";
 import {
 	addScore,
@@ -11,10 +12,10 @@ import {
 	setSpawnedIndex,
 	setStackedIndexes,
 } from "@src/features/game/model";
-import {Cell} from "@src/entities/game/ui/cell";
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
 import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useEffect, useRef} from "react";
+import {LOCAL_STORAGE_KEYS} from '@src/features/game/config'
 import * as s from "./Playground.module.css";
 
 const processMethod = {
@@ -51,9 +52,9 @@ export const Playground = () => {
 			});
 
 			if (isGameOver) {
-				const currentBestScore = Number(localStorage.getItem("best_score"));
+				const currentBestScore = Number(localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE));
 				if (!currentBestScore || currentBestScore < currentScore) {
-					localStorage.setItem("best_score", currentScore.toString());
+					localStorage.setItem(LOCAL_STORAGE_KEYS.BEST_SCORE, currentScore.toString());
 				}
 				dispatch(setGameOver(true));
 			}
@@ -67,7 +68,6 @@ export const Playground = () => {
 
 			const flatAnimated = animated.flat();
 			const child = containerRef.current.children as HTMLCollectionOf<HTMLDivElement>;
-
 			const spawnedResult = spawnCell(actual);
 
 			for (let i = 0; i < child.length; i++) {
@@ -86,10 +86,6 @@ export const Playground = () => {
 
 	useEffect(() => {
 		document.documentElement.style.setProperty("--transition-duration", `${TRANSITION_DURATION}ms`);
-
-		let spawned = spawnCell(cells).cells;
-		spawned = spawnCell(spawned).cells;
-		dispatch(setCells(spawned));
 	}, []);
 
 	useEffect(() => {
@@ -101,6 +97,10 @@ export const Playground = () => {
 				element.style.transition = "none";
 			});
 		}
+
+		//сохраняем в localStorage, чтобы после перезагрузки результат сохранился
+		localStorage.setItem(LOCAL_STORAGE_KEYS.CELLS, JSON.stringify(cells));
+		localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, currentScore.toString());
 
 		let startTouch: TouchCoords = {x: 0, y: 0};
 

@@ -1,11 +1,11 @@
 import {describe, expect, test} from "@jest/globals";
 import {Cells} from "@src/features/game/model";
-import {getEmptyCells} from "@src/entities/game/lib";
+import {getStartCells} from "@src/entities/game/lib";
 import {spawnCell} from "@src/features/game/lib";
 
 describe("SpawnCell", () => {
 	test("Спавн клеток (пустое поле)", () => {
-		const cells = getEmptyCells();
+		const cells = getStartCells();
 
 		for (let i = 0; i < 10; i++) {
 			expect(spawnCell(cells).cells).not.toEqual(cells);
@@ -26,7 +26,7 @@ describe("SpawnCell", () => {
 	});
 
 	test("Спавн клеток (спавн на той же клетке)", () => {
-		const cells = getEmptyCells();
+		const cells = getStartCells();
 
 		for (let i = 0; i < 100; i++) {
 			let spawned = spawnCell(cells).cells;
@@ -37,7 +37,7 @@ describe("SpawnCell", () => {
 	});
 
 	test("Спавн клеток (спавн на той же клетке 2)", () => {
-		const cells = getEmptyCells();
+		const cells = getStartCells();
 
 		for (let i = 0; i < 100; i++) {
 			let spawned = spawnCell(cells).cells;

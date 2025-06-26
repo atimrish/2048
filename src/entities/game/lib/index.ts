@@ -1,1 +1,1 @@
-export {getEmptyCells} from './get-empty-cells/getEmptyCells'
+export * from './get-start-cells/getStartCells'

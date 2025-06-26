@@ -1,7 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getEmptyCells} from "@src/entities/game/lib";
+import {getStartCells} from "@src/entities/game/lib";
 import {spawnCell} from "@src/features/game/lib";
 import {Cells} from "@src/features/game/model/types";
+import {LOCAL_STORAGE_KEYS} from '@src/features/game/config'
 
 interface GameSlice {
     cells: Cells
@@ -12,11 +13,15 @@ interface GameSlice {
     stackedIndexes: number[]
 }
 
+const initialCells = localStorage.getItem(LOCAL_STORAGE_KEYS.CELLS)
+const initialScore = localStorage.getItem(LOCAL_STORAGE_KEYS.SCORE)
+const initialBestScore = localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE)
+
 const initialState: GameSlice = {
-    cells: getEmptyCells(),
+    cells: initialCells ? JSON.parse(initialCells) : getStartCells(),
     gameOver: false,
-    score: 0,
-    bestScore: Number(localStorage.getItem('best_score')) || 0,
+    score: initialScore ? +initialScore : 0,
+    bestScore: Number(initialBestScore) || 0,
     spawnedIndex: -1,
     stackedIndexes: []
 }
@@ -52,13 +57,15 @@ export const gameSlice = createSlice({
             state.gameOver = payload
         },
         resetGame: (state) => {
-            let stacked = spawnCell(getEmptyCells()).cells
-            state.cells = spawnCell(stacked).cells
+            state.cells = getStartCells()
             state.gameOver = false
             state.score = 0
-            state.bestScore = Number(localStorage.getItem('best_score')) || 0
+            state.bestScore = Number(localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE)) || 0
             state.spawnedIndex = -1
             state.stackedIndexes = []
+
+            localStorage.setItem(LOCAL_STORAGE_KEYS.CELLS, JSON.stringify(state.cells))
+            localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, state.score.toString())
         }
     }
 })
