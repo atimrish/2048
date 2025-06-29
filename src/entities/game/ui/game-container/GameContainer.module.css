@@ -14,12 +14,23 @@
     font-size: 24px;
     font-weight: 700;
     font-family: sans-serif;
-    transition: 300ms all ease-in;
+    animation: fade_in 500ms ease forwards;
+    backdrop-filter: blur(2px);
+    cursor: pointer;
 }
 
 @media screen and (max-width: 400px) {
     .container {
         padding: 0;
         border: none;
+    }
+}
+
+@keyframes fade_in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
