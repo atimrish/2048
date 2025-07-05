@@ -3,7 +3,7 @@ import {gameConfig} from "@src/entities/game/config";
 
 export const animateTop = (cells: Cells): AnimatedResult => {
     const animated: CellsAnimated = Array.from({length: 4}, () => new Array(4).fill(''))
-    const actual: Cells = structuredClone(cells)
+    const actual: Cells = cells.map(row => [...row]) //работает быстрее чем structutedClone
     let score = 0
     const stackedIndexes: number[] = []
     let hasMovedCell = false
