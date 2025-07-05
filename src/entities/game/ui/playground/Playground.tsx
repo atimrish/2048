@@ -15,7 +15,7 @@ import {
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
 import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useEffect, useRef} from "react";
-import {LOCAL_STORAGE_KEYS} from "@src/features/game/config";
+import {LOCAL_STORAGE_KEYS, MIN_DIFF} from "@src/features/game/config";
 import * as s from "./Playground.module.css";
 
 const processMethod = {
@@ -118,11 +118,11 @@ export const Playground = () => {
 
 			if (Math.abs(diffX) > Math.abs(diffY)) {
 				//x axis
-				if (diffX === 0) return;
+				if (diffX < MIN_DIFF) return;
 				direction = diffX > 0 ? "ArrowRight" : "ArrowLeft";
 			} else {
 				//y axis
-				if (diffY === 0) return;
+				if (diffY < MIN_DIFF) return;
 				direction = diffY > 0 ? "ArrowDown" : "ArrowUp";
 			}
 
