@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getStartCells } from "@src/entities/game/lib";
-import { LOCAL_STORAGE_KEYS } from "@src/features/game/config";
-import { Cells } from "@src/features/game/model/types";
+import {createSlice} from "@reduxjs/toolkit";
+import {getStartCells} from "@src/entities/game/lib";
+import {LOCAL_STORAGE_KEYS} from "@src/features/game/config";
+import {Cells} from "@src/features/game/model/types";
 
 interface GameSlice {
 	cells: Cells;
@@ -70,7 +70,7 @@ export const gameSlice = createSlice({
 			state.spawnedIndex = -1;
 			state.stackedIndexes = [];
 
-			localStorage.setItem(LOCAL_STORAGE_KEYS.CELLS, JSON.stringify(state.cells));
+			localStorage.removeItem(LOCAL_STORAGE_KEYS.CELLS);
 			localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, state.score.toString());
 		},
 	},

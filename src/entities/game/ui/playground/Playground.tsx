@@ -107,6 +107,7 @@ export const Playground = () => {
 		};
 
 		const onTouchMove = (e: TouchEvent) => {
+			e.preventDefault();
 			endTouch.x = e.changedTouches[0].clientX;
 			endTouch.y = e.changedTouches[0].clientY;
 		};
@@ -114,15 +115,18 @@ export const Playground = () => {
 		const onTouchEnd = () => {
 			const diffX = endTouch.x - startTouch.x;
 			const diffY = endTouch.y - startTouch.y;
+			const absDiffX = Math.abs(diffX);
+			const absDiffY = Math.abs(diffY);
+
 			let direction: ProcessKey;
 
-			if (Math.abs(diffX) > Math.abs(diffY)) {
+			if (absDiffX > absDiffY) {
 				//x axis
-				if (diffX < MIN_DIFF) return;
+				if (absDiffX < MIN_DIFF) return;
 				direction = diffX > 0 ? "ArrowRight" : "ArrowLeft";
 			} else {
 				//y axis
-				if (diffY < MIN_DIFF) return;
+				if (absDiffY < MIN_DIFF) return;
 				direction = diffY > 0 ? "ArrowDown" : "ArrowUp";
 			}
 

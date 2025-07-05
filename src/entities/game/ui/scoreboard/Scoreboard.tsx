@@ -12,6 +12,14 @@ export const Scoreboard = () => {
 		dispatch(resetGame());
 	};
 
+	const onTouchStart = (e: React.TouchEvent) => {
+		e.stopPropagation();
+	};
+
+	const onTouchEnd = (e: React.TouchEvent) => {
+		e.stopPropagation();
+	};
+
 	return (
 		<div className={s.scoreboard}>
 			<div>
@@ -19,7 +27,11 @@ export const Scoreboard = () => {
 				<div>Best score: {bestScore}</div>
 			</div>
 
-			<button className={s.new_game_button} onClick={onButtonPress}>
+			<button
+				className={s.new_game_button}
+				onClick={onButtonPress}
+				onTouchStart={onTouchStart}
+				onTouchEnd={onTouchEnd}>
 				New game
 			</button>
 		</div>
