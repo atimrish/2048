@@ -15,7 +15,7 @@ import {
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
 import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useEffect, useRef} from "react";
-import {LOCAL_STORAGE_KEYS} from '@src/features/game/config'
+import {LOCAL_STORAGE_KEYS} from "@src/features/game/config";
 import * as s from "./Playground.module.css";
 
 const processMethod = {
@@ -32,7 +32,7 @@ const processMethod = {
 type ProcessKey = keyof typeof processMethod;
 type TouchCoords = {x: number; y: number};
 
-const TRANSITION_DURATION = 200;
+const TRANSITION_DURATION = 170;
 const TRANSITION_STYLE = `transform ${TRANSITION_DURATION}ms ease`;
 
 export const Playground = () => {
@@ -52,10 +52,6 @@ export const Playground = () => {
 			});
 
 			if (isGameOver) {
-				const currentBestScore = Number(localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE));
-				if (!currentBestScore || currentBestScore < currentScore) {
-					localStorage.setItem(LOCAL_STORAGE_KEYS.BEST_SCORE, currentScore.toString());
-				}
 				dispatch(setGameOver(true));
 			}
 
@@ -103,15 +99,19 @@ export const Playground = () => {
 		localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, currentScore.toString());
 
 		let startTouch: TouchCoords = {x: 0, y: 0};
+		let endTouch: TouchCoords = {x: 0, y: 0};
 
 		const onTouchStart = (e: TouchEvent) => {
 			const {clientX: x, clientY: y} = e.changedTouches[0];
 			startTouch = {x, y};
 		};
 
-		const onTouchEnd = (e: TouchEvent) => {
-			const {clientX: x, clientY: y} = e.changedTouches[0];
-			const endTouch: TouchCoords = {x, y};
+		const onTouchMove = (e: TouchEvent) => {
+			endTouch.x = e.changedTouches[0].clientX;
+			endTouch.y = e.changedTouches[0].clientY;
+		};
+
+		const onTouchEnd = () => {
 			const diffX = endTouch.x - startTouch.x;
 			const diffY = endTouch.y - startTouch.y;
 			let direction: ProcessKey;
@@ -125,7 +125,12 @@ export const Playground = () => {
 				if (diffY === 0) return;
 				direction = diffY > 0 ? "ArrowDown" : "ArrowUp";
 			}
+
 			processDirection(direction);
+
+			//обнуляем конечные координаты
+			endTouch.x = 0;
+			endTouch.y = 0;
 		};
 
 		const keyboardActions = (e: KeyboardEvent) => {
@@ -134,11 +139,13 @@ export const Playground = () => {
 
 		document.body.addEventListener("keyup", keyboardActions);
 		document.body.addEventListener("touchstart", onTouchStart);
+		document.body.addEventListener("touchmove", onTouchMove);
 		document.body.addEventListener("touchend", onTouchEnd);
 
 		return () => {
 			document.body.removeEventListener("keyup", keyboardActions);
 			document.body.removeEventListener("touchstart", onTouchStart);
+			document.body.removeEventListener("touchmove", onTouchMove);
 			document.body.removeEventListener("touchend", onTouchEnd);
 
 			const child = containerRef.current?.children as HTMLCollectionOf<HTMLDivElement>;
