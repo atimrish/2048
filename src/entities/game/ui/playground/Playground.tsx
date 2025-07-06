@@ -17,6 +17,7 @@ import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useEffect, useRef} from "react";
 import {LOCAL_STORAGE_KEYS, MIN_DIFF} from "@src/features/game/config";
 import * as s from "./Playground.module.css";
+import { checkCanMove } from "@src/features/game/lib/check-can-move/checkCanMove";
 
 const processMethod = {
 	ArrowUp: animateTop,
@@ -46,12 +47,7 @@ export const Playground = () => {
 	const processDirection = (direction: ProcessKey) => {
 		if (containerRef.current && processMethod[direction as ProcessKey]) {
 			//game over check
-			const isGameOver = Object.values(processMethod).every((process) => {
-				const result = process(cells);
-				return !result.hasMovedCell && !result.hasStackedCell;
-			});
-
-			if (isGameOver) {
+			if (!checkCanMove(cells)) {
 				dispatch(setGameOver(true));
 			}
 
