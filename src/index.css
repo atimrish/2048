@@ -1,6 +1,18 @@
 :global :root {
 	--white: #feffff;
 	--black: #0e0e10;
+
+	--color-2: #ffffff;
+	--color-4: #f0ecf6;
+	--color-8: #d1c4e6;
+	--color-16: #d1c6e4;
+	--color-32: #c1b3db;
+	--color-64: #b2a0d2;
+	--color-128: #a28dc8;
+	--color-256: #937abf;
+	--color-512: #8367b6;
+	--color-1024: #7454ad;
+	--color-2048: #6441a4;
 }
 
 :global * {

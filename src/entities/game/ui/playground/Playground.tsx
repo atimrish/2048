@@ -4,12 +4,14 @@ import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@
 import {
 	addScore,
 	getCells,
+	getGameOver,
 	getScore,
-	getSpawnedIndex,
+	getSpawnedIndexes,
 	getStackedIndexes,
+	resetGame,
 	setCells,
 	setGameOver,
-	setSpawnedIndex,
+	setSpawnedIndexes,
 	setStackedIndexes,
 } from "@src/features/game/model";
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
@@ -17,7 +19,7 @@ import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useEffect, useRef} from "react";
 import {LOCAL_STORAGE_KEYS, MIN_DIFF} from "@src/features/game/config";
 import * as s from "./Playground.module.css";
-import { checkCanMove } from "@src/features/game/lib/check-can-move/checkCanMove";
+import {checkCanMove} from "@src/features/game/lib/check-can-move/checkCanMove";
 
 const processMethod = {
 	ArrowUp: animateTop,
@@ -33,30 +35,41 @@ const processMethod = {
 type ProcessKey = keyof typeof processMethod;
 type TouchCoords = {x: number; y: number};
 
-const TRANSITION_DURATION = 170;
+const TRANSITION_DURATION = 150;
+
 const TRANSITION_STYLE = `transform ${TRANSITION_DURATION}ms ease`;
 
 export const Playground = () => {
+	const gameOver = useAppSelector((state) => getGameOver(state));
 	const cells = useAppSelector((state) => getCells(state));
-	const spawnedIndex = useAppSelector((state) => getSpawnedIndex(state));
+	const spawnedIndexes = useAppSelector((state) => getSpawnedIndexes(state));
 	const stackedIndexes = useAppSelector((state) => getStackedIndexes(state));
 	const containerRef = useRef<HTMLDivElement>(null);
 	const currentScore = useAppSelector((state) => getScore(state));
 	const dispatch = useAppDispatch();
+	let isMoving = false;
 
 	const processDirection = (direction: ProcessKey) => {
-		if (containerRef.current && processMethod[direction as ProcessKey]) {
+		if (containerRef.current && processMethod[direction]) {
+			//prevent actions while moving
+			if (isMoving) {
+				return;
+			}
+
 			//game over check
 			if (!checkCanMove(cells)) {
 				dispatch(setGameOver(true));
 			}
 
 			const {animated, actual, stackedIndexes, hasStackedCell, hasMovedCell, score} =
-				processMethod[direction as ProcessKey](cells);
+				processMethod[direction](cells);
 
 			if (!hasMovedCell && !hasStackedCell) {
 				return;
 			}
+
+			//set in moving
+			isMoving = true;
 
 			const flatAnimated = animated.flat();
 			const child = containerRef.current.children as HTMLCollectionOf<HTMLDivElement>;
@@ -70,8 +83,11 @@ export const Playground = () => {
 			requestAnimationTimeout(() => {
 				dispatch(addScore(score));
 				dispatch(setCells(spawnedResult.cells));
-				dispatch(setSpawnedIndex(spawnedResult.spawnIndex));
+				dispatch(setSpawnedIndexes({[spawnedResult.spawnIndex]: true}));
 				dispatch(setStackedIndexes(stackedIndexes));
+
+				//unset in moving
+				isMoving = false;
 			}, TRANSITION_DURATION);
 		}
 	};
@@ -168,11 +184,17 @@ export const Playground = () => {
 					<Cell
 						key={index}
 						value={i}
-						spawned={index === spawnedIndex}
+						spawned={Boolean(spawnedIndexes[index])}
 						stacked={stackedIndexes.includes(index)}
 					/>
 				))}
 			</div>
+
+			{gameOver && (
+				<div className={s.game_over} onClick={() => dispatch(resetGame())}>
+					New game
+				</div>
+			)}
 		</div>
 	);
 };

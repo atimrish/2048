@@ -22,9 +22,15 @@ export const Scoreboard = () => {
 
 	return (
 		<div className={s.scoreboard}>
-			<div>
-				<div>Score: {score}</div>
-				<div>Best score: {bestScore}</div>
+			<div className={s.scoreboard_panel}>
+				<div className={s.scoreboard_panel_item}>
+					<div className={s.scoreboard_panel_item_title}>Score</div>
+					<div>{score}</div>
+				</div>
+				<div className={s.scoreboard_panel_item}>
+					<div className={s.scoreboard_panel_item_title}>Best score</div>
+					<div>{bestScore}</div>
+				</div>
 			</div>
 
 			<button

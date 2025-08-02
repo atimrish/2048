@@ -1,36 +1,13 @@
 .container {
-    padding: 40px;
+    padding: 30px;
     border: 1px solid var(--white);
     position: relative;
-}
-
-.game_over {
-    inset: 0;
-    position: absolute;
-    background-color: rgba(254, 255, 255, 0.47);
-    color: var(--black);
-    display: grid;
-    place-items: center;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: sans-serif;
-    animation: fade_in 500ms ease forwards;
-    backdrop-filter: blur(2px);
-    cursor: pointer;
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 400px) {
     .container {
         padding: 0;
         border: none;
-    }
-}
-
-@keyframes fade_in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
     }
 }

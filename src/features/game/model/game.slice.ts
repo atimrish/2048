@@ -8,7 +8,7 @@ interface GameSlice {
 	gameOver: boolean;
 	score: number;
 	bestScore: number;
-	spawnedIndex: number;
+	spawnedIndexes: Record<number, boolean>;
 	stackedIndexes: number[];
 }
 
@@ -17,12 +17,25 @@ const initialScore = localStorage.getItem(LOCAL_STORAGE_KEYS.SCORE);
 const initialBestScore = localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE);
 
 const initialState: GameSlice = {
-	cells: initialCells ? JSON.parse(initialCells) : getStartCells(),
+	cells: initialCells ? JSON.parse(initialCells) : getStartCells().cells,
 	gameOver: false,
 	score: initialScore ? +initialScore : 0,
 	bestScore: Number(initialBestScore) || 0,
-	spawnedIndex: -1,
+	spawnedIndexes: {},
 	stackedIndexes: [],
+};
+
+const getInitialState = (): GameSlice => {
+	const startData = getStartCells();
+
+	return {
+		cells: initialCells ? JSON.parse(initialCells) : startData.cells,
+		gameOver: false,
+		score: initialScore ? +initialScore : 0,
+		bestScore: Number(initialBestScore) || 0,
+		spawnedIndexes: startData.spawnedIndexes,
+		stackedIndexes: [],
+	};
 };
 
 export const gameSlice = createSlice({
@@ -32,7 +45,7 @@ export const gameSlice = createSlice({
 		getCells: (state) => state.cells,
 		getGameOver: (state) => state.gameOver,
 		getScore: (state) => state.score,
-		getSpawnedIndex: (state) => state.spawnedIndex,
+		getSpawnedIndexes: (state) => state.spawnedIndexes,
 		getStackedIndexes: (state) => state.stackedIndexes,
 		getBestScore: (state) => state.bestScore,
 	},
@@ -40,8 +53,8 @@ export const gameSlice = createSlice({
 		setCells: (state, {payload}) => {
 			state.cells = payload;
 		},
-		setSpawnedIndex: (state, {payload}) => {
-			state.spawnedIndex = payload;
+		setSpawnedIndexes: (state, {payload}) => {
+			state.spawnedIndexes = payload;
 		},
 		setStackedIndexes: (state, {payload}) => {
 			state.stackedIndexes = payload;
@@ -63,11 +76,13 @@ export const gameSlice = createSlice({
 				localStorage.setItem(LOCAL_STORAGE_KEYS.BEST_SCORE, state.score.toString());
 			}
 
-			state.cells = getStartCells();
+			const startCells = getStartCells();
+			state.cells = startCells.cells;
+			state.spawnedIndexes = startCells.spawnedIndexes;
+
 			state.gameOver = false;
 			state.score = 0;
 			state.bestScore = Number(localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE)) || 0;
-			state.spawnedIndex = -1;
 			state.stackedIndexes = [];
 
 			localStorage.removeItem(LOCAL_STORAGE_KEYS.CELLS);
@@ -76,7 +91,8 @@ export const gameSlice = createSlice({
 	},
 });
 
-export const {getCells, getScore, getGameOver, getSpawnedIndex, getStackedIndexes, getBestScore} = gameSlice.selectors;
+export const {getCells, getScore, getGameOver, getSpawnedIndexes, getStackedIndexes, getBestScore} =
+	gameSlice.selectors;
 
-export const {setCells, setSpawnedIndex, setStackedIndexes, setScore, addScore, setGameOver, resetGame} =
+export const {setCells, setSpawnedIndexes, setStackedIndexes, setScore, addScore, setGameOver, resetGame} =
 	gameSlice.actions;
