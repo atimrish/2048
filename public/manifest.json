@@ -6,7 +6,7 @@
 	"background_color": "#feffff",
 	"theme_color": "#6441a4",
 	"icons": [
-		{"src": "./public/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
-		{"src": "./public/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png"}
+		{"src": "/2048/public/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
+		{"src": "/2048/public/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png"}
 	]
 }
