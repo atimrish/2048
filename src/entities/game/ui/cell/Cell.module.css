@@ -1,11 +1,12 @@
 .cell {
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: 600;
 	font-family: "JetBrains Mono", sans-serif;
 	display: grid;
 	place-items: center;
 	background-color: #5d5d5d;
 	will-change: transform;
+	color: var(--black);
 }
 
 .cell[data-value="0"] {
@@ -56,26 +57,33 @@
 	background-color: var(--color-2048);
 }
 
+.cell[data-value="4096"],
+.cell[data-value="8192"] {
+	background-color: var(--color-greater-then-2048);
+}
+
 .cell[data-value="2"],
 .cell[data-value="4"],
 .cell[data-value="8"] {
-	font-size: 32px;
+	font-size: 40px;
 }
 
 .cell[data-value="16"],
 .cell[data-value="32"],
 .cell[data-value="64"] {
-	font-size: 28px;
+	font-size: 36px;
 }
 
 .cell[data-value="128"],
 .cell[data-value="256"],
 .cell[data-value="512"] {
-	font-size: 24px;
+	font-size: 32px;
 }
 
 .cell[data-value="1024"],
-.cell[data-value="2048"] {
+.cell[data-value="2048"],
+.cell[data-value="4096"],
+.cell[data-value="8192"] {
 	box-shadow: 0px 0px 47px 9px rgb(114, 33, 159);
 	color: var(--white);
 	font-weight: 700;
@@ -87,7 +95,7 @@
 
 @keyframes spawn {
 	0% {
-		scale: 0
+		scale: 0;
 	}
 	90% {
 		scale: 1.1;

@@ -8,7 +8,7 @@ export const store = configureStore({
     }
 })
 
-export type Store = ReturnType<typeof store.getState>
+export type RootStore = ReturnType<typeof store.getState>
 
-export const useAppSelector = useSelector.withTypes<Store>()
+export const useAppSelector = useSelector.withTypes<RootStore>()
 export const useAppDispatch = useDispatch.withTypes<typeof store.dispatch>()

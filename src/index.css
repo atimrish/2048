@@ -13,6 +13,8 @@
 	--color-512: #8367b6;
 	--color-1024: #7454ad;
 	--color-2048: #6441a4;
+
+	--color-greater-then-2048: #4B0082;
 }
 
 :global * {

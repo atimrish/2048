@@ -1,14 +1,19 @@
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
 import {Cell} from "@src/entities/game/ui/cell";
+import {MIN_DIFF} from "@src/features/game/config";
 import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@src/features/game/lib";
+import {checkCanMove} from "@src/features/game/lib/check-can-move/checkCanMove";
 import {
 	addScore,
+	getBestScore,
 	getCells,
 	getGameOver,
 	getScore,
 	getSpawnedIndexes,
 	getStackedIndexes,
+	localStorageSaveThunk,
 	resetGame,
+	setBestScore,
 	setCells,
 	setGameOver,
 	setSpawnedIndexes,
@@ -17,9 +22,7 @@ import {
 import {requestAnimationTimeout} from "@src/shared/lib/animate";
 import {CellsBackground} from "@src/shared/ui/cells-background/CellsBackground";
 import {useEffect, useRef} from "react";
-import {LOCAL_STORAGE_KEYS, MIN_DIFF} from "@src/features/game/config";
 import * as s from "./Playground.module.css";
-import {checkCanMove} from "@src/features/game/lib/check-can-move/checkCanMove";
 
 const processMethod = {
 	ArrowUp: animateTop,
@@ -46,6 +49,7 @@ export const Playground = () => {
 	const stackedIndexes = useAppSelector((state) => getStackedIndexes(state));
 	const containerRef = useRef<HTMLDivElement>(null);
 	const currentScore = useAppSelector((state) => getScore(state));
+	const currentBestScore = useAppSelector((state) => getBestScore(state));
 	const dispatch = useAppDispatch();
 	let isMoving = false;
 
@@ -105,10 +109,6 @@ export const Playground = () => {
 				element.style.transition = "none";
 			});
 		}
-
-		//сохраняем в localStorage, чтобы после перезагрузки результат сохранился
-		localStorage.setItem(LOCAL_STORAGE_KEYS.CELLS, JSON.stringify(cells));
-		localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, currentScore.toString());
 
 		let startTouch: TouchCoords = {x: 0, y: 0};
 		let endTouch: TouchCoords = {x: 0, y: 0};
@@ -172,6 +172,15 @@ export const Playground = () => {
 			});
 		};
 	}, [cells]);
+
+	useEffect(() => {
+		if (currentScore > currentBestScore) {
+			dispatch(setBestScore(currentScore));
+		}
+
+		//save to localStorage
+		dispatch(localStorageSaveThunk());
+	}, [cells, currentBestScore, currentScore]);
 
 	return (
 		<div className={s.container}>
