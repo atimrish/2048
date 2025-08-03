@@ -1,12 +1,13 @@
 .cell {
 	font-size: 24px;
 	font-weight: 600;
-	font-family: "JetBrains Mono", sans-serif;
+	font-family: "JetBrains Mono", "Inter", "Roboto", sans-serif;
 	display: grid;
 	place-items: center;
 	background-color: #5d5d5d;
 	will-change: transform;
 	color: var(--black);
+	user-select: none;
 }
 
 .cell[data-value="0"] {
