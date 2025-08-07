@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {RootStore} from "@src/app/stores";
 import {getStartCells} from "@src/entities/game/lib";
-import {LOCAL_STORAGE_KEYS} from "@src/features/game/config";
+import {ANIMATION_SPEEDS, LOCAL_STORAGE_KEYS} from "@src/features/game/config";
 import {Cells} from "@src/features/game/model/types";
 
 interface GameSlice {
@@ -11,11 +11,13 @@ interface GameSlice {
 	bestScore: number;
 	spawnedIndexes: Record<number, boolean>;
 	stackedIndexes: number[];
+	animationSpeed: number;
 }
 
 const initialCells = localStorage.getItem(LOCAL_STORAGE_KEYS.CELLS);
 const initialScore = localStorage.getItem(LOCAL_STORAGE_KEYS.SCORE);
 const initialBestScore = localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE);
+const initialAnimationSpeed = localStorage.getItem(LOCAL_STORAGE_KEYS.ANIAMTION_SPEED);
 
 const initialState: GameSlice = {
 	cells: initialCells ? JSON.parse(initialCells) : getStartCells().cells,
@@ -24,6 +26,7 @@ const initialState: GameSlice = {
 	bestScore: Number(initialBestScore) || 0,
 	spawnedIndexes: {},
 	stackedIndexes: [],
+	animationSpeed: initialAnimationSpeed ? +initialAnimationSpeed : ANIMATION_SPEEDS["Medium"],
 };
 
 export const localStorageSaveThunk = createAsyncThunk("game/localStorageSave", async (_, {getState}) => {
@@ -31,6 +34,7 @@ export const localStorageSaveThunk = createAsyncThunk("game/localStorageSave", a
 	localStorage.setItem(LOCAL_STORAGE_KEYS.CELLS, JSON.stringify(game.cells));
 	localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, game.score.toString());
 	localStorage.setItem(LOCAL_STORAGE_KEYS.BEST_SCORE, game.bestScore.toString());
+	localStorage.setItem(LOCAL_STORAGE_KEYS.ANIAMTION_SPEED, game.animationSpeed.toString());
 });
 
 export const gameSlice = createSlice({
@@ -43,6 +47,7 @@ export const gameSlice = createSlice({
 		getSpawnedIndexes: (state) => state.spawnedIndexes,
 		getStackedIndexes: (state) => state.stackedIndexes,
 		getBestScore: (state) => state.bestScore,
+		getAnimationSpeed: (state) => state.animationSpeed,
 	},
 	reducers: {
 		setCells: (state, {payload}) => {
@@ -66,6 +71,9 @@ export const gameSlice = createSlice({
 		setGameOver: (state, {payload}) => {
 			state.gameOver = payload;
 		},
+		setAnimationSpeed: (state, {payload}) => {
+			state.animationSpeed = payload;
+		},
 		resetGame: (state) => {
 			const startCells = getStartCells();
 			state.cells = startCells.cells;
@@ -78,7 +86,7 @@ export const gameSlice = createSlice({
 	},
 });
 
-export const {getCells, getScore, getGameOver, getSpawnedIndexes, getStackedIndexes, getBestScore} =
+export const {getCells, getScore, getGameOver, getSpawnedIndexes, getStackedIndexes, getBestScore, getAnimationSpeed} =
 	gameSlice.selectors;
 
 export const {
@@ -90,4 +98,5 @@ export const {
 	setGameOver,
 	resetGame,
 	setBestScore,
+	setAnimationSpeed,
 } = gameSlice.actions;

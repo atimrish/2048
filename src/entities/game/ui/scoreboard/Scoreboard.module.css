@@ -25,9 +25,16 @@
     font-size: 14px;
 }
 
+
+.second_panel {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 40px;
+}
+
 .new_game_button {
 	background-color: transparent;
-	padding: 5px;
     border-radius: 5px;
     border: none;
 	color: var(--black);
@@ -36,5 +43,19 @@
 	cursor: pointer;
 	font-size: 16px;
 	font-weight: 700;
-    margin-top: 40px;
+	width: 105px;
+	height: 42px;
+    
+}
+
+.settings_button {
+	background-color: var(--white);
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	height: 42px;
+	width: 42px;
+	display: grid;
+	place-items: center;
+	border-radius: 5px;
 }

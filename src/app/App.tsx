@@ -7,10 +7,7 @@ export const App = () => {
 	return (
 		<>
 			<GameProvider>
-				<GameContainer>
-					<Scoreboard />
-					<Playground />
-				</GameContainer>
+				<GameContainer/>
 			</GameProvider>
 		</>
 	);

@@ -91,7 +91,7 @@
 }
 
 .cell[data-spawned="true"] {
-	animation: spawn 100ms forwards;
+	animation: spawn 150ms forwards;
 }
 
 @keyframes spawn {

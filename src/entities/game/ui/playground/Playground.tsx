@@ -5,6 +5,7 @@ import {animateBottom, animateLeft, animateRight, animateTop, spawnCell} from "@
 import {checkCanMove} from "@src/features/game/lib/check-can-move/checkCanMove";
 import {
 	addScore,
+	getAnimationSpeed,
 	getBestScore,
 	getCells,
 	getGameOver,
@@ -38,10 +39,6 @@ const processMethod = {
 type ProcessKey = keyof typeof processMethod;
 type TouchCoords = {x: number; y: number};
 
-const TRANSITION_DURATION = 150;
-
-const TRANSITION_STYLE = `transform ${TRANSITION_DURATION}ms ease`;
-
 export const Playground = () => {
 	const gameOver = useAppSelector((state) => getGameOver(state));
 	const cells = useAppSelector((state) => getCells(state));
@@ -50,8 +47,11 @@ export const Playground = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const currentScore = useAppSelector((state) => getScore(state));
 	const currentBestScore = useAppSelector((state) => getBestScore(state));
+	const animationSpeed = useAppSelector((state) => getAnimationSpeed(state));
 	const dispatch = useAppDispatch();
 	let isMoving = false;
+
+	const TRANSITION_STYLE = `transform ${animationSpeed}ms cubic-bezier(0.975, 0.975, 0.255, 1.015)`;
 
 	const processDirection = (direction: ProcessKey) => {
 		if (containerRef.current && processMethod[direction]) {
@@ -92,13 +92,13 @@ export const Playground = () => {
 
 				//unset in moving
 				isMoving = false;
-			}, TRANSITION_DURATION);
+			}, animationSpeed);
 		}
 	};
 
 	useEffect(() => {
-		document.documentElement.style.setProperty("--transition-duration", `${TRANSITION_DURATION}ms`);
-	}, []);
+		document.documentElement.style.setProperty("--transition-duration", `${animationSpeed}ms`);
+	}, [animationSpeed]);
 
 	useEffect(() => {
 		if (containerRef.current) {
@@ -154,22 +154,28 @@ export const Playground = () => {
 		};
 
 		document.body.addEventListener("keyup", keyboardActions);
-		document.body.addEventListener("touchstart", onTouchStart);
-		document.body.addEventListener("touchmove", onTouchMove);
-		document.body.addEventListener("touchend", onTouchEnd);
+
+		if (containerRef.current) {
+			containerRef.current.addEventListener("touchstart", onTouchStart);
+			containerRef.current.addEventListener("touchmove", onTouchMove);
+			containerRef.current.addEventListener("touchend", onTouchEnd);
+		}
 
 		return () => {
 			document.body.removeEventListener("keyup", keyboardActions);
-			document.body.removeEventListener("touchstart", onTouchStart);
-			document.body.removeEventListener("touchmove", onTouchMove);
-			document.body.removeEventListener("touchend", onTouchEnd);
 
-			const child = containerRef.current?.children as HTMLCollectionOf<HTMLDivElement>;
+			if (containerRef.current) {
+				containerRef.current.removeEventListener("touchstart", onTouchStart);
+				containerRef.current.removeEventListener("touchmove", onTouchMove);
+				containerRef.current.removeEventListener("touchend", onTouchEnd);
 
-			Array.from(child).forEach((element) => {
-				element.style.transform = "translate(0px, 0px)";
-				element.style.transition = TRANSITION_STYLE;
-			});
+				const child = containerRef.current.children as HTMLCollectionOf<HTMLDivElement>;
+
+				Array.from(child).forEach((element) => {
+					element.style.transform = "translate(0px, 0px)";
+					element.style.transition = TRANSITION_STYLE;
+				});
+			}
 		};
 	}, [cells]);
 
