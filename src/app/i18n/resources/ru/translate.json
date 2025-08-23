@@ -1,0 +1,12 @@
+{
+    "score": "Счет",
+    "bestScore": "Рекорд",
+    "newGame": "Новая игра",
+    "animationSpeed": {
+        "title": "Скорость анимаций",
+        "fast": "Быстро",
+        "medium": "Средне",
+        "slow": "Медленно"
+    },
+    "language": "Язык"
+}

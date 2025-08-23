@@ -2,10 +2,12 @@ import {useState} from "react";
 import {Playground} from "../playground";
 import {Scoreboard} from "../scoreboard";
 import * as s from "./GameContainer.module.css";
-import {ANIMATION_SPEEDS} from "@src/features/game/config";
+import {ANIMATION_SPEEDS, LANGUAGES, LOCAL_STORAGE_KEYS} from "@src/features/game/config";
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
 import {getAnimationSpeed, setAnimationSpeed} from "@src/features/game/model";
-import { requestAnimationTimeout } from "@src/shared/lib";
+import {requestAnimationTimeout} from "@src/shared/lib";
+import {useTranslation} from "react-i18next";
+import i18n from "@src/app/i18n/i18n";
 
 export const GameContainer = () => {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -13,23 +15,25 @@ export const GameContainer = () => {
 	const dispatch = useAppDispatch();
 	const currentAnimationSpeed = useAppSelector((state) => getAnimationSpeed(state));
 
+	const {t} = useTranslation();
+
 	return (
 		<div className={s.container}>
 			<Scoreboard openModal={() => setModalOpen(true)} />
 			<Playground />
 
 			{modalOpen && (
-				<div className={modalClasses.join(' ')}>
+				<div className={modalClasses.join(" ")}>
 					<div className={s.modal__panel}>
 						<button
 							className={s.modal__panel__close_button}
 							onClick={() => {
-								setModalClasses([...modalClasses, s.modal_out])
+								setModalClasses([...modalClasses, s.modal_out]);
 
 								requestAnimationTimeout(() => {
 									setModalOpen(false);
-									setModalClasses([s.modal])
-								}, 150)
+									setModalClasses([s.modal]);
+								}, 150);
 							}}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +52,7 @@ export const GameContainer = () => {
 						</button>
 					</div>
 
-					<h3 className={s.modal__header}>Animation speed</h3>
+					<h3 className={s.modal__header}>{t("animationSpeed.title")}</h3>
 
 					<div className={s.modal__speed_block}>
 						{Object.entries(ANIMATION_SPEEDS).map(([key, value]) => (
@@ -56,7 +60,22 @@ export const GameContainer = () => {
 								className={s.modal__speed_button}
 								onClick={() => dispatch(setAnimationSpeed(value))}
 								data-selected={currentAnimationSpeed === value}>
-								{key}
+								{t("animationSpeed." + key)}
+							</button>
+						))}
+					</div>
+
+					<h3 className={s.modal__header}>{t('language')}</h3>
+					<div className={s.modal__speed_block}>
+						{Object.entries(LANGUAGES).map(([key, value]) => (
+							<button
+								className={s.modal__speed_button}
+								onClick={() => {
+									i18n.changeLanguage(key)
+									localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE, key)
+								}}
+								data-selected={i18n.language === key}>
+								{value}
 							</button>
 						))}
 					</div>

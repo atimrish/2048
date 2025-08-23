@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "@src/app/stores";
 import {getBestScore, getScore, resetGame} from "@src/features/game/model";
 import * as s from "./Scoreboard.module.css";
-
+import {useTranslation} from "react-i18next";
 type ScoreboardProps = {
 	openModal: () => void;
 };
@@ -9,8 +9,9 @@ type ScoreboardProps = {
 export const Scoreboard = (p: ScoreboardProps) => {
 	const score = useAppSelector((state) => getScore(state));
 	const bestScore = useAppSelector((state) => getBestScore(state));
-
 	const dispatch = useAppDispatch();
+
+	const {t} = useTranslation()
 
 	const onNewGameButtonPress = () => {
 		dispatch(resetGame());
@@ -24,18 +25,18 @@ export const Scoreboard = (p: ScoreboardProps) => {
 		<div className={s.scoreboard}>
 			<div className={s.scoreboard_panel}>
 				<div className={s.scoreboard_panel_item}>
-					<div className={s.scoreboard_panel_item_title}>Score</div>
+					<div className={s.scoreboard_panel_item_title}>{t('score')}</div>
 					<div>{score}</div>
 				</div>
 				<div className={s.scoreboard_panel_item}>
-					<div className={s.scoreboard_panel_item_title}>Best score</div>
+					<div className={s.scoreboard_panel_item_title}>{t('bestScore')}</div>
 					<div>{bestScore}</div>
 				</div>
 			</div>
 
 			<div className={s.second_panel}>
 				<button className={s.new_game_button} onClick={onNewGameButtonPress}>
-					New game
+					{t('newGame')}
 				</button>
 
 				<button className={s.settings_button} onClick={onSettingsButtonPress}>

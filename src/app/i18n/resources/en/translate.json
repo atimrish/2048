@@ -1,0 +1,12 @@
+{
+    "score": "Score",
+    "bestScore": "Best score",
+    "newGame": "New game",
+    "animationSpeed": {
+        "title": "Animation speed",
+        "fast": "Fast",
+        "medium": "Medium",
+        "slow": "Slow"
+    },
+    "language": "Language"
+}

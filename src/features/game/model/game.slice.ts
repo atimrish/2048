@@ -17,7 +17,7 @@ interface GameSlice {
 const initialCells = localStorage.getItem(LOCAL_STORAGE_KEYS.CELLS);
 const initialScore = localStorage.getItem(LOCAL_STORAGE_KEYS.SCORE);
 const initialBestScore = localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE);
-const initialAnimationSpeed = localStorage.getItem(LOCAL_STORAGE_KEYS.ANIAMTION_SPEED);
+const initialAnimationSpeed = localStorage.getItem(LOCAL_STORAGE_KEYS.ANIMATION_SPEED);
 
 const initialState: GameSlice = {
 	cells: initialCells ? JSON.parse(initialCells) : getStartCells().cells,
@@ -26,7 +26,7 @@ const initialState: GameSlice = {
 	bestScore: Number(initialBestScore) || 0,
 	spawnedIndexes: {},
 	stackedIndexes: [],
-	animationSpeed: initialAnimationSpeed ? +initialAnimationSpeed : ANIMATION_SPEEDS["Medium"],
+	animationSpeed: initialAnimationSpeed ? +initialAnimationSpeed : ANIMATION_SPEEDS["medium"],
 };
 
 export const localStorageSaveThunk = createAsyncThunk("game/localStorageSave", async (_, {getState}) => {
@@ -34,7 +34,7 @@ export const localStorageSaveThunk = createAsyncThunk("game/localStorageSave", a
 	localStorage.setItem(LOCAL_STORAGE_KEYS.CELLS, JSON.stringify(game.cells));
 	localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, game.score.toString());
 	localStorage.setItem(LOCAL_STORAGE_KEYS.BEST_SCORE, game.bestScore.toString());
-	localStorage.setItem(LOCAL_STORAGE_KEYS.ANIAMTION_SPEED, game.animationSpeed.toString());
+	localStorage.setItem(LOCAL_STORAGE_KEYS.ANIMATION_SPEED, game.animationSpeed.toString());
 });
 
 export const gameSlice = createSlice({
