@@ -1,6 +1,6 @@
 .scoreboard {
 	color: var(--color-4);
-	font-family: sans-serif;
+	font-family: var(--main-font);
 	font-size: 20px;
 	font-weight: 600;
 	padding: 0 0 20px 0;
@@ -19,10 +19,12 @@
     color: var(--black);
     border-radius: 5px;
     padding: 5px;
+	font-family: var(--main-font);
 }
 
 .scoreboard_panel_item_title {
     font-size: 14px;
+	font-family: var(--main-font);
 }
 
 
@@ -45,6 +47,7 @@
 	font-weight: 700;
 	width: 105px;
 	height: 42px;
+	font-family: var(--main-font);
     
 }
 

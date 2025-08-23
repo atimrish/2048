@@ -10,7 +10,6 @@
 	aspect-ratio: 1;
 	border-radius: 5px;
 	transition: transform var(--transition-duration) ease-in-out;
-	/* transition-property: transform; */
 }
 
 .container {
@@ -28,7 +27,7 @@
     place-items: center;
     font-size: 24px;
     font-weight: 700;
-    font-family: sans-serif;
+    font-family: var(--main-font);
     animation: fade_in 500ms ease forwards;
     backdrop-filter: blur(2px);
     cursor: pointer;

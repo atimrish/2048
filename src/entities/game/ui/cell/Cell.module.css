@@ -1,7 +1,7 @@
 .cell {
 	font-size: 24px;
 	font-weight: 600;
-	font-family: "JetBrains Mono", "Inter", "Roboto", sans-serif;
+	font-family: var(--main-font);
 	display: grid;
 	place-items: center;
 	background-color: #5d5d5d;

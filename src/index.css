@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'Exa2';
+	src: url('./shared/ui/assets/fonts/exa2/Exo2-VariableFont_wght.ttf');
+}
+
 :global :root {
 	--white: #feffff;
 	--black: #0e0e10;
@@ -15,11 +20,13 @@
 	--color-2048: #6441a4;
 
 	--color-greater-then-2048: #4B0082;
+
+	--main-font: 'Exa2', sans-serif;
 }
 
 :global * {
 	box-sizing: border-box;
-	font-family: sans-serif;
+	font-family: var(--main-font);
 }
 
 :global body {

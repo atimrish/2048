@@ -37,6 +37,7 @@
 
 .modal__header {
     color: var(--white);
+    font-family: var(--main-font);
 }
 
 .modal__speed_button {
@@ -50,6 +51,7 @@
     font-size: 18px;
     cursor: pointer;
     transition: all 300ms ease;
+    font-family: var(--main-font);
 }
 
 .modal__speed_button:hover {
