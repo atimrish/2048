@@ -1,6 +1,6 @@
 @font-face {
-	font-family: 'Exa2';
-	src: url('./shared/ui/assets/fonts/exa2/Exo2-VariableFont_wght.ttf');
+	font-family: "Exa2";
+	src: url("./shared/ui/assets/fonts/exa2/Exo2-VariableFont_wght.ttf");
 }
 
 :global :root {
@@ -19,19 +19,23 @@
 	--color-1024: #7454ad;
 	--color-2048: #6441a4;
 
-	--color-greater-then-2048: #4B0082;
+	--color-greater-then-2048: #4b0082;
 
-	--main-font: 'Exa2', sans-serif;
+	--main-font: "Exa2", sans-serif;
 }
 
 :global * {
 	box-sizing: border-box;
 	font-family: var(--main-font);
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 }
 
 :global body {
 	min-height: 100vh;
-	background-color: var(--black);
+	background-color: #404040;
 	display: grid;
 	place-items: center;
 	margin: 0;

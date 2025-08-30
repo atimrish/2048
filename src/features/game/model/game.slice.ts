@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {RootStore} from "@src/app/stores";
 import {getStartCells} from "@src/entities/game/lib";
-import {ANIMATION_SPEEDS, LOCAL_STORAGE_KEYS} from "@src/features/game/config";
+import {ANIMATION_SPEEDS, LOCAL_STORAGE_KEYS, MAX_LAST_STEPS} from "@src/features/game/config";
 import {Cells} from "@src/features/game/model/types";
 
 interface GameSlice {
@@ -12,12 +12,14 @@ interface GameSlice {
 	spawnedIndexes: Record<number, boolean>;
 	stackedIndexes: number[];
 	animationSpeed: number;
+	lastSteps: Array<{score: number, cells: Cells}>
 }
 
 const initialCells = localStorage.getItem(LOCAL_STORAGE_KEYS.CELLS);
 const initialScore = localStorage.getItem(LOCAL_STORAGE_KEYS.SCORE);
 const initialBestScore = localStorage.getItem(LOCAL_STORAGE_KEYS.BEST_SCORE);
 const initialAnimationSpeed = localStorage.getItem(LOCAL_STORAGE_KEYS.ANIMATION_SPEED);
+const initialLastSteps = localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_STEPS);
 
 const initialState: GameSlice = {
 	cells: initialCells ? JSON.parse(initialCells) : getStartCells().cells,
@@ -27,6 +29,7 @@ const initialState: GameSlice = {
 	spawnedIndexes: {},
 	stackedIndexes: [],
 	animationSpeed: initialAnimationSpeed ? +initialAnimationSpeed : ANIMATION_SPEEDS["medium"],
+	lastSteps: initialLastSteps ? JSON.parse(initialLastSteps) : []
 };
 
 export const localStorageSaveThunk = createAsyncThunk("game/localStorageSave", async (_, {getState}) => {
@@ -35,6 +38,7 @@ export const localStorageSaveThunk = createAsyncThunk("game/localStorageSave", a
 	localStorage.setItem(LOCAL_STORAGE_KEYS.SCORE, game.score.toString());
 	localStorage.setItem(LOCAL_STORAGE_KEYS.BEST_SCORE, game.bestScore.toString());
 	localStorage.setItem(LOCAL_STORAGE_KEYS.ANIMATION_SPEED, game.animationSpeed.toString());
+	localStorage.setItem(LOCAL_STORAGE_KEYS.LAST_STEPS, JSON.stringify(game.lastSteps))
 });
 
 export const gameSlice = createSlice({
@@ -74,6 +78,13 @@ export const gameSlice = createSlice({
 		setAnimationSpeed: (state, {payload}) => {
 			state.animationSpeed = payload;
 		},
+		addLastStep: (state, {payload}) => {
+			if (state.lastSteps.length === MAX_LAST_STEPS) {
+				state.lastSteps.shift()	
+			}
+
+			state.lastSteps.push(payload)
+		},
 		resetGame: (state) => {
 			const startCells = getStartCells();
 			state.cells = startCells.cells;
@@ -82,7 +93,13 @@ export const gameSlice = createSlice({
 			state.gameOver = false;
 			state.score = 0;
 			state.stackedIndexes = [];
+			state.lastSteps = []
 		},
+		rollbackStep: (state) => {
+			state.score = state.lastSteps[0].score
+			state.cells = state.lastSteps[0].cells
+			state.gameOver = false
+		}
 	},
 });
 
@@ -99,4 +116,6 @@ export const {
 	resetGame,
 	setBestScore,
 	setAnimationSpeed,
+	addLastStep,
+	rollbackStep
 } = gameSlice.actions;

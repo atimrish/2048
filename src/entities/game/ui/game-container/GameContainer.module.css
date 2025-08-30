@@ -1,15 +1,18 @@
 .container {
-    padding: 30px;
-    border: 1px solid var(--white);
+    width: 560px;
+    height: 100vh;
     position: relative;
-    border-radius: 5px;
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
 }
 
 .modal {
     position: absolute;
     inset: -1px;
     background-color: var(--black);
-    border-radius: 5px;
     animation: fadeIn 150ms ease forwards;
     padding: 30px;
 }
@@ -72,6 +75,12 @@
     overflow: hidden;
 }
 
+@media screen and (max-width: 560px) {
+    .container {
+        width: 100vw;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -87,16 +96,5 @@
     }
     to {
         opacity: 0;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .container {
-        padding: 0;
-        border: none;
-    }
-
-    .modal {
-        padding: 0;
     }
 }

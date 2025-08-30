@@ -1,7 +1,7 @@
 .scoreboard {
 	color: var(--color-4);
 	font-family: var(--main-font);
-	font-size: 20px;
+	font-size: clamp(20px, 1.875vw ,36px);
 	font-weight: 600;
 	padding: 0 0 20px 0;
 
@@ -14,19 +14,18 @@
 
 .scoreboard_panel_item {
 	text-align: center;
-    min-width: 120px;
     background-color: var(--color-4);
     color: var(--black);
     border-radius: 5px;
-    padding: 5px;
+    padding: clamp(5px, 0.78125vw, 15px) 0;
 	font-family: var(--main-font);
+	width: clamp(130px, 12.5vw, 240px);
 }
 
 .scoreboard_panel_item_title {
-    font-size: 14px;
+    font-size: clamp(14px, 1.25vw, 24px);
 	font-family: var(--main-font);
 }
-
 
 .second_panel {
 	display: flex;
@@ -41,11 +40,12 @@
     border: none;
 	color: var(--black);
     background-color: var(--color-4);
-	padding: 10px;
+	padding: clamp(10px, 1.04vw, 20px);
 	cursor: pointer;
-	font-size: 16px;
+	font-size: clamp(16px, 1.25vw, 24px);
+	line-height: clamp(16px, 1.25vw, 24px);
 	font-weight: 700;
-	height: 42px;
+	height: clamp(42px, 3.33vw, 64px);
 	font-family: var(--main-font);
     
 }
@@ -55,9 +55,15 @@
 	border: none;
 	cursor: pointer;
 	padding: 0;
-	height: 42px;
-	width: 42px;
+	height: clamp(42px, 3.33vw, 64px);
+	width: clamp(42px, 3.33vw, 64px);
 	display: grid;
 	place-items: center;
 	border-radius: 5px;
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+	.scoreboard_panel {
+		gap: 16px;
+	}
 }

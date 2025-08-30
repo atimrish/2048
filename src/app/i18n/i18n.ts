@@ -2,7 +2,8 @@ import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
 import enTranslation from "./resources/en/translate.json";
 import ruTranslation from "./resources/ru/translate.json";
-import { LOCAL_STORAGE_KEYS } from "@src/features/game/config";
+import { LANGUAGES, LOCAL_STORAGE_KEYS } from "@src/features/game/config";
+import { SDK } from "ysdk";
 
 const resources = {
 	en: {
@@ -21,5 +22,15 @@ i18n.use(initReactI18next).init({
 		escapeValue: false,
 	},
 });
+
+export const setYSDKLanguage = (ysdk: SDK) => {
+	const localStoredLanguage = localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE)
+
+	if (localStoredLanguage) {
+		i18n.changeLanguage(localStoredLanguage)
+	} else if (LANGUAGES[ysdk.environment.i18n.lang.toString() as keyof typeof LANGUAGES]) {
+		i18n.changeLanguage(ysdk.environment.i18n.lang);
+	}
+}
 
 export default i18n;

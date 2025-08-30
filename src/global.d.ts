@@ -1,3 +1,11 @@
-declare module "*.module.css";
-declare module "*.svg";
-declare module "*.json";
+import {SDK} from "ysdk";
+
+declare global {
+	interface Window {
+		ysdk: SDK;
+	}
+
+	module "*.module.css";
+	module "*.svg";
+	module "*.json";
+}

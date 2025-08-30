@@ -42,9 +42,9 @@ export const GameContainer = () => {
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="#0e0e10"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round">
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 								<path d="M18 6l-12 12" />
 								<path d="M6 6l12 12" />
@@ -57,6 +57,7 @@ export const GameContainer = () => {
 					<div className={s.modal__speed_block}>
 						{Object.entries(ANIMATION_SPEEDS).map(([key, value]) => (
 							<button
+								key={key}
 								className={s.modal__speed_button}
 								onClick={() => dispatch(setAnimationSpeed(value))}
 								data-selected={currentAnimationSpeed === value}>
@@ -65,17 +66,18 @@ export const GameContainer = () => {
 						))}
 					</div>
 
-					<h3 className={s.modal__header}>{t('language')}</h3>
+					<h3 className={s.modal__header}>{t("language.title")}</h3>
 					<div className={s.modal__speed_block}>
-						{Object.entries(LANGUAGES).map(([key, value]) => (
+						{Object.keys(LANGUAGES).map((key) => (
 							<button
+							key={key}
 								className={s.modal__speed_button}
 								onClick={() => {
-									i18n.changeLanguage(key)
-									localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE, key)
+									i18n.changeLanguage(key);
+									localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE, key);
 								}}
 								data-selected={i18n.language === key}>
-								{value}
+								{t('language.' + key)}
 							</button>
 						))}
 					</div>

@@ -1,5 +1,5 @@
 .cell {
-	font-size: 24px;
+	font-size: 9cqw;
 	font-weight: 600;
 	font-family: var(--main-font);
 	display: grid;
@@ -66,19 +66,19 @@
 .cell[data-value="2"],
 .cell[data-value="4"],
 .cell[data-value="8"] {
-	font-size: 40px;
+	font-size: 14cqw;
 }
 
 .cell[data-value="16"],
 .cell[data-value="32"],
 .cell[data-value="64"] {
-	font-size: 36px;
+	font-size: 12cqw;
 }
 
 .cell[data-value="128"],
 .cell[data-value="256"],
 .cell[data-value="512"] {
-	font-size: 32px;
+	font-size: 11cqw;
 }
 
 .cell[data-value="1024"],

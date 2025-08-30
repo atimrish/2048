@@ -1,7 +1,7 @@
 import {AnimatedResult, Cells, CellsAnimated} from "@src/features/game/model";
 import {gameConfig} from "@src/entities/game/config";
 
-export const animateLeft = (cells: Cells): AnimatedResult => {
+export const animateLeft = (cells: Cells, cellWidth = gameConfig.size): AnimatedResult => {
     const animated: CellsAnimated = Array.from({length: 4}, () => new Array(4).fill(''))
     const actual: Cells = cells.map(row => [...row]) //работает быстрее чем structutedClone
     let score = 0
@@ -42,7 +42,7 @@ export const animateLeft = (cells: Cells): AnimatedResult => {
                 }
             }
 
-            const pixelsToLeft = movementCells * (gameConfig.gap + gameConfig.size)
+            const pixelsToLeft = movementCells * (gameConfig.gap + cellWidth)
             animated[y][x] = `translate(-${pixelsToLeft}px, 0px)`
         }
     }

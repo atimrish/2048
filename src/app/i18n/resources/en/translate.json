@@ -8,5 +8,11 @@
         "medium": "Medium",
         "slow": "Slow"
     },
-    "language": "Language"
+    "language": {
+        "title": "Language",
+        "en": "English",
+        "ru": "Russian"
+    },
+    "moves_back": "3 moves back",
+    "or": "or"
 }

@@ -1,12 +1,18 @@
 {
-    "score": "Счет",
-    "bestScore": "Рекорд",
-    "newGame": "Новая игра",
-    "animationSpeed": {
-        "title": "Скорость анимаций",
-        "fast": "Быстро",
-        "medium": "Средне",
-        "slow": "Медленно"
+	"score": "Счет",
+	"bestScore": "Рекорд",
+	"newGame": "Новая игра",
+	"animationSpeed": {
+		"title": "Скорость анимаций",
+		"fast": "Быстро",
+		"medium": "Средне",
+		"slow": "Медленно"
+	},
+	"language": {
+        "title": "Язык",
+        "en": "Английский",
+        "ru": "Русский"
     },
-    "language": "Язык"
+	"moves_back": "Назад на 3 хода",
+	"or": "или"
 }
